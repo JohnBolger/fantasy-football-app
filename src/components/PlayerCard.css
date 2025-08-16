@@ -2,7 +2,7 @@
   position: relative;
   width: 120px;
   height: 150px;
-  background: linear-gradient(135deg, #1e3a8a, #1e40af);
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
   border-radius: 20px 20px 20px 5px;
   display: flex;
   flex-direction: column;
@@ -11,31 +11,29 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
   cursor: pointer;
-  border: 2px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(4, 175, 149, 0.3);
 }
 
 .player-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: #04af95;
 }
 
 .player-card.placeholder {
-  background: linear-gradient(135deg, #374151, #4b5563);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, #d1d5db, #9ca3af);
+  border-color: rgba(4, 175, 149, 0.2);
 }
 
 .player-photo {
+  position: relative;
   width: 60px;
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 10px;
-  position: relative;
-  background: linear-gradient(135deg, #6b7280, #9ca3af);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border: 3px solid #04af95;
+  box-shadow: 0 4px 15px rgba(4, 175, 149, 0.3);
 }
 
 .player-photo img {
@@ -45,10 +43,16 @@
 }
 
 .player-photo-fallback {
-  color: white;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #04af95, #0e2543);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f4f5f6;
   font-weight: bold;
   font-size: 1.2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
 }
 
 .player-photo-fallback.hidden {
@@ -59,18 +63,19 @@
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6b7280, #9ca3af);
+  background: linear-gradient(135deg, #848b9c, #4d506b);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 10px;
+  border: 3px solid rgba(4, 175, 149, 0.3);
 }
 
 .placeholder-text {
-  color: white;
+  color: #f4f5f6;
   font-weight: bold;
-  font-size: 1.5rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  font-size: 1.2rem;
+  text-transform: uppercase;
 }
 
 .player-info {
@@ -86,31 +91,25 @@
 .player-name {
   font-size: 0.8rem;
   font-weight: bold;
-  color: white;
-  margin-bottom: 2px;
+  color: #f4f5f6;
+  margin-bottom: 4px;
   line-height: 1.2;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
-.player-team {
-  font-size: 0.7rem;
-  color: #a3bffa;
-  margin-bottom: 2px;
-  font-weight: 500;
-}
-
-.player-college {
+.player-team-college {
   font-size: 0.6rem;
-  color: #9ca3af;
+  color: #f4f5f6;
+  font-weight: 600;
   margin-bottom: 2px;
-  font-weight: 400;
-  font-style: italic;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.2;
 }
 
-.player-points {
-  font-size: 0.7rem;
-  color: #fbbf24;
-  font-weight: bold;
+.college-separator {
+  margin: 0 4px;
+  opacity: 0.7;
 }
 
 .player-position {
@@ -118,73 +117,69 @@
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.7);
-  color: white;
+  background: rgba(14, 37, 67, 0.9);
+  color: #f4f5f6;
   padding: 4px 8px;
   border-radius: 12px;
   font-size: 0.7rem;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border: 1px solid #04af95;
 }
 
-.injury-indicator {
+.player-multiplier {
   position: absolute;
   top: 8px;
   right: 8px;
-  background: rgba(239, 68, 68, 0.9);
-  color: white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.8rem;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
+  background: linear-gradient(135deg, #04af95, #0e2543);
+  color: #f4f5f6;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  z-index: 5;
+  border: 1px solid #f4f5f6;
 }
 
 /* Football position-specific styling */
-.qb-player {
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+.qb-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
 
-.rb-player {
-  background: linear-gradient(135deg, #059669, #047857);
+.rb-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
 
-.wr-player {
-  background: linear-gradient(135deg, #ea580c, #c2410c);
+.wr-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
 
-.flex-player {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
+.flex-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
 
-.te-player {
-  background: linear-gradient(135deg, #7c2d12, #92400e);
+.te-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
 
-.bench-player {
-  background: linear-gradient(135deg, #6b7280, #4b5563);
+.bench-player { 
+  background: linear-gradient(135deg, #d1d5db, #9ca3af);
+  border-color: rgba(4, 175, 149, 0.5);
 }
 
-.k-player {
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+.k-player { 
+  background: linear-gradient(135deg, #9ca3af, #6b7280);
+  border-color: #04af95;
 }
-
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -194,18 +189,21 @@
     padding: 12px 8px;
   }
   
-  .player-photo,
+  .player-photo {
+    width: 50px;
+    height: 50px;
+  }
+  
   .player-photo-placeholder {
     width: 50px;
     height: 50px;
-    margin-bottom: 8px;
   }
   
   .player-name {
     font-size: 0.7rem;
   }
   
-  .player-team {
+  .player-team-college {
     font-size: 0.6rem;
   }
   
@@ -213,12 +211,10 @@
     font-size: 0.5rem;
   }
   
-  .player-points {
-    font-size: 0.6rem;
-  }
-  
-  .player-position {
+  .player-multiplier {
     font-size: 0.6rem;
     padding: 3px 6px;
+    top: 6px;
+    right: 6px;
   }
 }

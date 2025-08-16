@@ -1,103 +1,175 @@
-# Fantasy Football Team Manager
+# 🏈 Fantasy Football Team Manager
 
-A React app that connects to Sleeper.app's API to display your fantasy football team in a beautiful 4-3-3 formation layout.
+A dynamic, interactive fantasy football team management application built with React and TypeScript that connects to the Sleeper.app API to display and manage your fantasy football roster.
 
-## Features
+## ✨ Features
 
-- 🏟️ Beautiful football pitch design with 4-3-3 formation
-- 👥 Player cards with photos, stats, and position indicators
-- 🔗 Direct integration with Sleeper.app API
-- 📱 Responsive design for mobile and desktop
-- 🎨 Modern dark theme UI similar to FUT.GG
+### 🎯 **Team Formation Display**
+- **Custom Formation Layout**: QB, RB1, RB2, WR1, WR2, Flex1, Flex2, TE, and Kicker positions
+- **Interactive Player Cards**: Each player displays name, team, college, and position
+- **Bench Management**: Dedicated section for bench players
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-## Setup Instructions
+### 🔗 **Dynamic Player Connections**
+- **Smart Connection System**: Lines connect players based on team and college relationships
+- **Color-Coded Connections**:
+  - **🟣 Purple**: Same team AND same college (+0.2 multiplier)
+  - **🟢 Green**: Same team OR same college (+0.1 multiplier)
+  - **⚪ Transparent**: Different team and college (no bonus)
 
-### 1. Install Dependencies
+### 📊 **Player Multiplier System**
+- **Dynamic Bonuses**: Players earn multipliers based on their connections
+- **Base Multiplier**: 1.0x for all players
+- **Connection Bonuses**: 
+  - Team/college connections add 0.1x to 0.2x
+  - Visual multiplier badges on player cards
+- **Strategic Insights**: See which players have chemistry bonuses
 
-```bash
-npm install
-```
+### 🎨 **Modern UI/UX**
+- **Custom Theme**: Dark blue/grey color scheme with green accents
+- **Smooth Animations**: Hover effects, connection line animations, and transitions
+- **Professional Design**: Clean, modern interface inspired by professional sports apps
+- **Username Customization**: Personalize your team name with custom username input
 
-### 2. Get Your Sleeper API Credentials
+### 🔌 **Sleeper.app Integration**
+- **Live Data**: Connect to your actual Sleeper fantasy football league
+- **Hybrid Approach**: Uses local player database for details + API for current roster
+- **Demo Mode**: Test the app with sample data before connecting to live league
 
-You'll need to find your **League ID** and **User ID** from Sleeper:
+## 🚀 Getting Started
 
-1. **League ID**: Go to your Sleeper league and copy the ID from the URL
-   - Example: `https://sleeper.app/league/1234567890` → League ID is `1234567890`
+### Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn package manager
 
-2. **User ID**: Go to your Sleeper profile and copy your user ID
-   - Example: `https://sleeper.app/user/abcdef123` → User ID is `abcdef123`
+### Installation
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/JohnBolger/fantasy-football-app.git
+   cd fantasy-football-app
+   ```
 
-### 3. Update Configuration
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Open `src/App.tsx` and update these lines with your actual values:
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-```typescript
-const leagueId = 'YOUR_LEAGUE_ID'; // Replace with your actual league ID
-const userId = 'YOUR_USER_ID';      // Replace with your actual user ID
-```
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-### 4. Start the Development Server
+## 🎮 How to Use
 
-```bash
-npm start
-```
+### **Demo Mode (Default)**
+- The app starts in demo mode with sample players
+- Explore all features without connecting to Sleeper
+- Perfect for testing and demonstration
 
-The app will open in your browser at `http://localhost:3000`
+### **Live Mode**
+- Click "Live Mode" to connect to your Sleeper league
+- Requires a `players.json` file with player data
+- Automatically fetches your current roster
 
-## How It Works
+### **Customizing Your Team**
+- **Change Username**: Type in the input field to personalize your team name
+- **View Connections**: See which players have team/college chemistry
+- **Check Multipliers**: Look for multiplier badges on player cards
+- **Explore Formation**: Navigate through different position groups
 
-1. **API Integration**: The app connects to Sleeper's public API to fetch your team data
-2. **Team Display**: Players are automatically positioned in a 4-3-3 formation based on their positions
-3. **Real-time Data**: Player stats, photos, and injury status are pulled directly from Sleeper
-4. **Responsive Design**: Works on both desktop and mobile devices
+## 🛠️ Technical Details
 
-## API Endpoints Used
-
-- `GET /league/{league_id}` - Get league information
-- `GET /league/{league_id}/rosters` - Get all team rosters
-- `POST /players/nfl` - Get detailed player information
-
-## Troubleshooting
-
-### Common Issues
-
-1. **"Failed to fetch team data"**
-   - Check that your League ID and User ID are correct
-   - Ensure your Sleeper league is active and public
-   - Check your internet connection
-
-2. **No players showing**
-   - Verify that your team has players assigned to positions
-   - Check that the position abbreviations match (LW, ST, RW, CM, LB, CB, RB, GK)
-
-3. **CORS errors**
-   - Sleeper's API should work without CORS issues
-   - If you encounter problems, try using a different browser
-
-### Getting Help
-
-- Check the browser console for error messages
-- Verify your Sleeper league settings
-- Ensure your team has players in the correct positions
-
-## Customization
-
-You can easily customize the app by:
-
-- Changing the formation in `src/components/TeamFormation.tsx`
-- Modifying colors in the CSS files
-- Adding new player statistics
-- Implementing additional features like player search or team comparison
-
-## Technologies Used
-
+### **Built With**
 - **React 18** with TypeScript
-- **CSS3** with modern features (Grid, Flexbox, Animations)
-- **Sleeper.app API** for fantasy football data
-- **Responsive design** for all devices
+- **CSS3** with custom animations and responsive design
+- **SVG Graphics** for dynamic connection lines
+- **Sleeper.app API** for live fantasy football data
 
-## License
+### **Architecture**
+- **Component-Based**: Modular React components for maintainability
+- **State Management**: React hooks for local state management
+- **API Integration**: RESTful API calls to Sleeper.app
+- **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
 
-This project is open source and available under the MIT License.
-"# fantasy-football-app" 
+### **Key Components**
+- `TeamFormation`: Main formation display and layout
+- `PlayerCard`: Individual player information display
+- `SleeperAPI`: API integration and data fetching
+- `DemoMode`: Sample data and demo functionality
+
+## 📁 Project Structure
+```
+fantasy-football-app/
+├── public/
+│   ├── players.json          # Player database
+│   └── index.html
+├── src/
+│   ├── components/
+│   │   ├── TeamFormation.tsx # Main team display
+│   │   ├── PlayerCard.tsx    # Individual player cards
+│   │   └── DemoMode.tsx      # Sample data
+│   ├── services/
+│   │   └── SleeperAPI.ts     # API integration
+│   ├── types/
+│   │   └── Player.ts         # TypeScript interfaces
+│   └── App.tsx               # Main application
+└── README.md
+```
+
+## 🔧 Configuration
+
+### **Sleeper.app Setup**
+1. **Get your League ID**: Found in your Sleeper league URL
+2. **Update API Configuration**: Modify `src/services/SleeperAPI.ts`
+3. **Add Player Data**: Ensure `public/players.json` contains player information
+
+### **Customization Options**
+- **Theme Colors**: Modify CSS variables in component files
+- **Formation Layout**: Adjust player positions in `TeamFormation.tsx`
+- **Connection Rules**: Customize connection logic and multipliers
+- **Player Display**: Modify what information shows on player cards
+
+## 🎯 Use Cases
+
+### **Fantasy Football Managers**
+- **Team Analysis**: Visualize player connections and chemistry
+- **Roster Management**: Organize starters and bench players
+- **Strategy Planning**: Use multipliers to optimize lineups
+
+### **Sports Enthusiasts**
+- **Team Visualization**: See your fantasy team in an engaging format
+- **Player Research**: Explore team and college relationships
+- **Performance Tracking**: Monitor player bonuses and connections
+
+### **Developers**
+- **React Learning**: Study modern React patterns and TypeScript usage
+- **API Integration**: Learn how to integrate external sports APIs
+- **UI/UX Design**: Explore responsive design and animation techniques
+
+## 🤝 Contributing
+
+Contributions are welcome! Here are some ways you can help:
+
+- **Bug Reports**: Open issues for any problems you encounter
+- **Feature Requests**: Suggest new features or improvements
+- **Code Contributions**: Submit pull requests for enhancements
+- **Documentation**: Help improve this README or add code comments
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🙏 Acknowledgments
+
+- **Sleeper.app** for providing the fantasy football API
+- **React Team** for the amazing framework
+- **Fantasy Football Community** for inspiration and feedback
+
+---
+
+**Ready to manage your fantasy football team like a pro?** 🏆
+
+Start the app, customize your username, and explore the dynamic world of player connections and multipliers! 

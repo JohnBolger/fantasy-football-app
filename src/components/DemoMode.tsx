@@ -1,157 +1,164 @@
 import { Player } from '../types/Player';
 
 // Sample data for demo purposes with realistic football players
-export const samplePlayers: Player[] = [
+export const demoPlayers: Player[] = [
+  // Starters - All Eagles players
   {
-    id: '1',
-    name: 'Patrick Mahomes',
+    id: '4039',
+    name: 'Jalen Hurts',
     position: 'QB',
-    team: 'KC',
-    points: 24.5,
-    projected_points: 22.8,
-    photo_url: 'https://en.wikipedia.org/wiki/Patrick_Mahomes#/media/File:Patrick_Mahomes_Chiefs_Military_Appreciation_8123166_(cropped).jpg',
-    college: 'Texas Tech'
+    team: 'PHI',
+    college: 'Oklahoma',
+    rank: 1,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4039.jpg'
   },
   {
-    id: '2',
-    name: 'Christian McCaffrey',
+    id: '642',
+    name: 'D\'Andre Swift',
     position: 'RB1',
-    team: 'SF',
-    points: 28.3,
-    projected_points: 25.2,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/christian-mccaffrey.jpg',
-    college: 'Stanford'
+    team: 'PHI',
+    college: 'Georgia',
+    rank: 15,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/642.jpg'
   },
   {
-    id: '3',
-    name: 'Saquon Barkley',
+    id: '4034',
+    name: 'Kenneth Gainwell',
     position: 'RB2',
     team: 'PHI',
-    points: 19.6,
-    projected_points: 17.8,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/saquon-barkley.jpg',
-    college: 'Penn State'
+    college: 'Memphis',
+    rank: 45,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4034.jpg'
   },
   {
-    id: '4',
-    name: 'Tyreek Hill',
+    id: '147',
+    name: 'A.J. Brown',
     position: 'WR1',
-    team: 'MIA',
-    points: 26.1,
-    projected_points: 24.5,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/tyreek-hill.jpg',
-    college: 'West Alabama'
+    team: 'PHI',
+    college: 'Ole Miss',
+    rank: 5,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/147.jpg'
   },
   {
-    id: '5',
-    name: 'Stefon Diggs',
+    id: '4038',
+    name: 'DeVonta Smith',
     position: 'WR2',
-    team: 'HOU',
-    points: 22.4,
-    projected_points: 20.1,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/stefon-diggs.jpg',
-    college: 'Maryland'
+    team: 'PHI',
+    college: 'Alabama',
+    rank: 12,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4038.jpg'
   },
   {
-    id: '6',
-    name: 'Davante Adams',
-    position: 'Flex1',
-    team: 'LV',
-    points: 16.9,
-    projected_points: 19.2,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/davante-adams.jpg',
-    college: 'Fresno State'
-  },
-  {
-    id: '7',
-    name: 'Travis Kelce',
+    id: '515',
+    name: 'Dallas Goedert',
     position: 'TE',
-    team: 'KC',
-    points: 18.7,
-    projected_points: 16.8,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/travis-kelce.jpg',
-    college: 'Cincinnati'
+    team: 'PHI',
+    college: 'South Dakota State',
+    rank: 8,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/515.jpg'
   },
   {
-    id: '8',
-    name: 'Mark Andrews',
+    id: '4149',
+    name: 'Quez Watkins',
+    position: 'Flex1',
+    team: 'PHI',
+    college: 'Southern Miss',
+    rank: 65,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4149.jpg'
+  },
+  {
+    id: '2257',
+    name: 'Olamide Zaccheaus',
     position: 'Flex2',
-    team: 'BAL',
-    points: 14.3,
-    projected_points: 15.6,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/mark-andrews.jpg',
-    college: 'Oklahoma'
+    team: 'PHI',
+    college: 'Virginia',
+    rank: 85,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2257.jpg'
   },
   {
-    id: '15',
+    id: '2307',
     name: 'Jake Elliott',
     position: 'K',
     team: 'PHI',
-    points: 12.8,
-    projected_points: 13.2,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/jake-elliott.jpg',
-    college: 'Memphis'
+    college: 'Memphis',
+    rank: 3,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2307.jpg'
   },
-  // Bench Players
+  // Bench players - Also Eagles
   {
-    id: '9',
-    name: 'Josh Allen',
-    position: 'Bench',
-    team: 'BUF',
-    points: 22.1,
-    projected_points: 23.5,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/josh-allen.jpg',
-    college: 'Wyoming'
-  },
-  {
-    id: '10',
-    name: 'Derrick Henry',
-    position: 'Bench',
-    team: 'BAL',
-    points: 18.7,
-    projected_points: 19.2,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/derrick-henry.jpg',
-    college: 'Alabama'
-  },
-  {
-    id: '11',
-    name: 'CeeDee Lamb',
-    position: 'Bench',
-    team: 'DAL',
-    points: 20.3,
-    projected_points: 21.8,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/ceeedee-lamb.jpg',
-    college: 'Oklahoma'
-  },
-  {
-    id: '12',
-    name: 'Sam LaPorta',
-    position: 'Bench',
-    team: 'DET',
-    points: 16.2,
-    projected_points: 17.1,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/sam-laporta.jpg',
-    college: 'Iowa'
-  },
-  {
-    id: '13',
-    name: 'Jalen Hurts',
+    id: '2309',
+    name: 'Marcus Mariota',
     position: 'Bench',
     team: 'PHI',
-    points: 19.8,
-    projected_points: 20.5,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/jalen-hurts.jpg',
-    college: 'Oklahoma'
+    college: 'Oregon',
+    rank: 25,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2309.jpg'
   },
   {
-    id: '14',
-    name: 'Breece Hall',
+    id: '4035',
+    name: 'Rashaad Penny',
     position: 'Bench',
-    team: 'NYJ',
-    points: 17.4,
-    projected_points: 18.2,
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/breece-hall.jpg',
-    college: 'Iowa State'
+    team: 'PHI',
+    college: 'San Diego State',
+    rank: 35,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4035.jpg'
+  },
+  {
+    id: '4381',
+    name: 'Britain Covey',
+    position: 'Bench',
+    team: 'PHI',
+    college: 'Utah',
+    rank: 95,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4381.jpg'
+  },
+  {
+    id: '5849',
+    name: 'Grant Calcaterra',
+    position: 'Bench',
+    team: 'PHI',
+    college: 'SMU',
+    rank: 28,
+    points: 0,
+    projected_points: 0,
+    status: 'Active',
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/5849.jpg'
   }
 ];
 

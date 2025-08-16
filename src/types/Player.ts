@@ -10,6 +10,7 @@ export interface Player {
   injury_status?: string;
   photo_url?: string;
   college?: string;
+  multiplier?: number;
 }
 
 export interface SleeperPlayer {

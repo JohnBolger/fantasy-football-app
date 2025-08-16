@@ -6,9 +6,10 @@ interface PlayerCardProps {
   player: Player | null;
   position: string;
   className?: string;
+  multiplier?: number;
 }
 
-const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '' }) => {
+const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '', multiplier }) => {
   if (!player) {
     // Display placeholder when no player is assigned
     return (
@@ -42,17 +43,20 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
       
                         <div className="player-info">
                     <div className="player-name">{player.name}</div>
-                    <div className="player-team">{player.team}</div>
-                    {player.college && (
-                      <div className="player-college">{player.college}</div>
-                    )}
+                    <div className="player-team-college">
+                      {player.team}
+                      {player.college && (
+                        <span className="college-separator"> • </span>
+                      )}
+                      {player.college}
+                    </div>
                   </div>
       
       <div className="player-position">{position}</div>
       
-      {player.injury_status && player.injury_status !== 'Active' && (
-        <div className="injury-indicator" title={player.injury_status}>
-          ⚠️
+      {multiplier && multiplier > 1.0 && (
+        <div className="player-multiplier" title={`Multiplier: ${multiplier}x`}>
+          {multiplier}x
         </div>
       )}
     </div>

@@ -3,7 +3,7 @@ import './App.css';
 import TeamFormation from './components/TeamFormation';
 import { SleeperAPI } from './services/SleeperAPI';
 import { Player } from './types/Player';
-import { samplePlayers, transformPlayersForFormation } from './components/DemoMode';
+import { demoPlayers, transformPlayersForFormation } from './components/DemoMode';
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -14,8 +14,8 @@ function App() {
   useEffect(() => {
     if (demoMode) {
       // Use sample data for demo mode
-      const demoPlayers = transformPlayersForFormation(samplePlayers);
-      setPlayers(demoPlayers);
+      const transformedDemoPlayers = transformPlayersForFormation(demoPlayers);
+      setPlayers(transformedDemoPlayers);
     } else {
       // Fetch real data from Sleeper API
       const fetchTeam = async () => {

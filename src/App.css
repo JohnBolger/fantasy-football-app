@@ -1,7 +1,8 @@
 .app {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-  padding: 20px;
+  background: linear-gradient(135deg, #0e2543 0%, #4d506b 100%);
+  color: #f4f5f6;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .loading {
@@ -9,8 +10,9 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  font-size: 24px;
-  color: #ffffff;
+  font-size: 1.5rem;
+  color: #f4f5f6;
+  background: linear-gradient(135deg, #0e2543 0%, #4d506b 100%);
 }
 
 .error {
@@ -20,17 +22,20 @@
   align-items: center;
   height: 100vh;
   text-align: center;
-  color: #ff6b6b;
+  padding: 20px;
+  background: linear-gradient(135deg, #0e2543 0%, #4d506b 100%);
 }
 
 .error h2 {
+  color: #04af95;
   margin-bottom: 20px;
-  color: #ff6b6b;
+  font-size: 2rem;
 }
 
 .error p {
-  margin: 10px 0;
-  color: #ffffff;
+  color: #f4f5f6;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
   max-width: 600px;
   line-height: 1.6;
 }
@@ -38,30 +43,36 @@
 .demo-toggle {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(14, 37, 67, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid #04af95;
 }
 
 .toggle-btn {
-  background: rgba(255, 255, 255, 0.1);
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  color: #cccccc;
   padding: 12px 24px;
+  border: 2px solid #04af95;
+  background: transparent;
+  color: #f4f5f6;
   border-radius: 25px;
   cursor: pointer;
+  font-size: 1rem;
   font-weight: 600;
   transition: all 0.3s ease;
-  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .toggle-btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  background: #04af95;
+  color: #0e2543;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(4, 175, 149, 0.3);
 }
 
 .toggle-btn.active {
-  background: linear-gradient(135deg, #ff6b35, #f7931e);
-  border-color: #ff6b35;
-  color: white;
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.4);
+  background: #04af95;
+  color: #0e2543;
+  box-shadow: 0 4px 15px rgba(4, 175, 149, 0.4);
 }

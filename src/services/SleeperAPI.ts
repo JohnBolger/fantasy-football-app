@@ -171,7 +171,7 @@ export class SleeperAPI {
       projected_points: sleeperPlayer.projected_fantasy_points || 0, // Default to 0 if not present
       status: sleeperPlayer.status,
       injury_status: sleeperPlayer.injury_status,
-      photo_url: sleeperPlayer.photo_url,
+      photo_url: `https://sleepercdn.com/content/nfl/players/thumb/${sleeperPlayer.player_id}.jpg`,
       college: sleeperPlayer.college,
     }));
   }
