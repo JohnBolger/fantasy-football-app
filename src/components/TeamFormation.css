@@ -1,0 +1,298 @@
+.team-formation {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.formation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 2px solid #ff6b35;
+}
+
+.team-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+.football-field {
+  flex: 1;
+  background: linear-gradient(135deg, #2d5016 0%, #1a3d0a 100%);
+  border-radius: 20px;
+  margin: 20px 0;
+  padding: 40px;
+  position: relative;
+  min-height: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.field-markings {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.endzone-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.endzone-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 15%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 1.2rem;
+  text-align: center;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+.yard-lines {
+  position: absolute;
+  top: 0;
+  left: 15%;
+  right: 15%;
+  bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.yard-lines > div {
+  color: rgba(255, 255, 255, 0.7);
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.hash-marks {
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  right: 15%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-50%);
+}
+
+.formation-section {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.section-title {
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 20px 0;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.position-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.position-group:last-child {
+  margin-bottom: 0;
+}
+
+/* Offense Section */
+.offense-section {
+  border-left: 4px solid #dc2626;
+}
+
+/* Kicker Row Layout */
+.kicker-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Top Row Layout */
+.top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.top-row .position-group {
+  margin-bottom: 0;
+}
+
+
+
+.formation-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  gap: 20px;
+}
+
+.footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.currency-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.currency-icon {
+  background: linear-gradient(135deg, #ff6b35, #f7931e);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.currency-amount {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.bench-label {
+  font-size: 1.1rem;
+  color: #cccccc;
+  font-weight: 600;
+}
+
+.bench-players {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  max-width: 100%;
+}
+
+.player-ids-display {
+  text-align: center;
+  color: white;
+}
+
+.player-ids-display h4 {
+  margin: 0 0 15px 0;
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+.player-ids-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+}
+
+.player-id {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: monospace;
+  font-size: 0.9rem;
+  color: #ffffff;
+}
+
+.footer-right {
+  display: flex;
+  align-items: center;
+}
+
+.navigation-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .team-title {
+    font-size: 2rem;
+  }
+  
+  .football-field {
+    padding: 20px;
+    min-height: 600px;
+  }
+  
+  .position-group {
+    gap: 10px;
+  }
+  
+  .section-title {
+    font-size: 1.2rem;
+  }
+}
