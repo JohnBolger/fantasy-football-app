@@ -184,9 +184,60 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .player-card {
+    width: 110px;
+    height: 170px;
+    padding: 12px 8px;
+    border-radius: 12px;
+  }
+  
+  .player-photo {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+  }
+  
+  .player-photo-placeholder {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+  }
+  
+  .placeholder-text {
+    font-size: 1.2rem;
+  }
+  
+  .player-name {
+    font-size: 0.75rem;
+    line-height: 1.2;
+    margin-bottom: 4px;
+  }
+  
+  .player-team-college {
+    font-size: 0.65rem;
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  
+  .player-position {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+  
+  .player-multiplier {
+    font-size: 0.65rem;
+    padding: 3px 6px;
+    top: 6px;
+    right: 6px;
+    border-radius: 8px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .player-card {
     width: 100px;
     height: 160px;
-    padding: 12px 8px;
+    padding: 10px 6px;
   }
   
   .player-photo {
@@ -207,14 +258,28 @@
     font-size: 0.6rem;
   }
   
-  .player-college {
-    font-size: 0.5rem;
+  .player-position {
+    font-size: 0.65rem;
+    padding: 2px 5px;
   }
   
   .player-multiplier {
     font-size: 0.6rem;
-    padding: 3px 6px;
-    top: 6px;
-    right: 6px;
+    padding: 2px 5px;
+  }
+}
+
+/* Landscape mobile orientation */
+@media (max-width: 768px) and (orientation: landscape) {
+  .top-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .player-card {
+    width: 120px;
+    height: 180px;
   }
 }
