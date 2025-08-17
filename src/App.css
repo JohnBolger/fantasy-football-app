@@ -76,3 +76,27 @@
   color: #0e2543;
   box-shadow: 0 4px 15px rgba(4, 175, 149, 0.4);
 }
+
+.select-user-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  text-align: center;
+  padding: 20px;
+}
+
+.select-user-message h2 {
+  color: #04af95;
+  margin-bottom: 20px;
+  font-size: 2rem;
+}
+
+.select-user-message p {
+  color: #f4f5f6;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  max-width: 600px;
+  line-height: 1.6;
+}

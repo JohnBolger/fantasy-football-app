@@ -5,6 +5,17 @@ import PlayerCard from './PlayerCard';
 
 interface TeamFormationProps {
   players: Player[];
+  demoMode?: boolean;
+  onUserSelect: (userId: string) => void;
+  selectedUserId: string;
+}
+
+interface User {
+  display_name: string;
+  user_id: string;
+  metadata?: {
+    team_name?: string;
+  };
 }
 
 interface Connection {
@@ -13,10 +24,11 @@ interface Connection {
   color: string;
 }
 
-const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
+const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false, onUserSelect, selectedUserId }) => {
   const [playerPositions, setPlayerPositions] = useState<Record<string, { x: number; y: number; width: number; height: number }>>({});
   const playerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [username, setUsername] = useState<string>('');
+  const [users, setUsers] = useState<User[]>([]);
 
   // Define the football formation positions
   const formation = {
@@ -60,26 +72,59 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
     { from: 'TE', to: 'Flex1', color: 'transparent' },  // Transparent
     { from: 'TE', to: 'Flex2', color: 'transparent' },  // Transparent
     
-    // Flex1 connections
-    { from: 'Flex1', to: 'Flex2', color: 'transparent' }, // Transparent
+         // Flex1 connections removed - no direct connection between Flex1 and Flex2
     
     // K connections
     { from: 'K', to: 'Flex2', color: 'transparent' },   // Transparent
   ];
 
-  // Helper function to find player by position
-  const getPlayerByPosition = (position: string): Player | null => {
-    return players.find(player => player.position === position) || null;
+  // Helper function to find player by fantasy slot
+  const getPlayerByFantasySlot = (fantasySlot: string): Player | null => {
+    return players.find(player => player.fantasySlot === fantasySlot) || null;
   };
 
-  // Helper function to get all players for a position group
-  const getPlayersByPositions = (positions: string[]): (Player | null)[] => {
-    return positions.map(pos => getPlayerByPosition(pos));
+  // Helper function to get all players for a fantasy slot group
+  const getPlayersByFantasySlots = (fantasySlots: string[]): Player[] => {
+    const result = fantasySlots.map(slot => getPlayerByFantasySlot(slot)).filter((player): player is Player => player !== null);
+    console.log(`getPlayersByFantasySlots for ${fantasySlots.join(', ')}:`, result);
+    return result;
   };
+
+  // Handle user selection
+  const handleUserChange = (userId: string) => {
+    onUserSelect(userId);
+    const selectedUser = users.find(user => user.user_id === userId);
+    if (selectedUser) {
+      setUsername(selectedUser.display_name);
+    }
+  };
+
+  // Fetch users from users.json
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('/users.json');
+        if (response.ok) {
+          const usersData = await response.json();
+          setUsers(usersData);
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    if (!demoMode) {
+      fetchUsers();
+    } else {
+      // Clear selected user when switching to demo mode
+      onUserSelect('');
+      setUsername('');
+    }
+  }, [demoMode, onUserSelect]);
 
   // Calculate player positions for SVG connections
   useEffect(() => {
-    const positions: Record<string, { x: number; y: number; width: number; height: number }> = {};
+    const positions: Record<string, { x: number; y: number; height: number; width: number }> = {};
     
     Object.keys(playerRefs.current).forEach(position => {
       const element = playerRefs.current[position];
@@ -102,13 +147,13 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
   }, [players]);
 
   // Calculate player multipliers based on connections
-  const calculatePlayerMultiplier = (position: string): number => {
+  const calculatePlayerMultiplier = (fantasySlot: string): number => {
     let multiplier = 1.0; // Base multiplier
     
     connections.forEach(connection => {
-      if (connection.from === position || connection.to === position) {
-        const fromPlayer = getPlayerByPosition(connection.from);
-        const toPlayer = getPlayerByPosition(connection.to);
+      if (connection.from === fantasySlot || connection.to === fantasySlot) {
+        const fromPlayer = getPlayerByFantasySlot(connection.from);
+        const toPlayer = getPlayerByFantasySlot(connection.to);
         
         if (fromPlayer && toPlayer) {
           // Same team AND same college = Purple (+0.2)
@@ -128,7 +173,28 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
 
   // Calculate connection line endpoints at card edges
   const getConnectionEndpoints = (fromPos: { x: number; y: number; width: number; height: number }, 
-                                  toPos: { x: number; y: number; width: number; height: number }) => {
+                                  toPos: { x: number; y: number; width: number; height: number },
+                                  fromSlot: string,
+                                  toSlot: string) => {
+    // Special case for WR1 to WR2 connection - start at top corners
+    if ((fromSlot === 'WR1' && toSlot === 'WR2') || (fromSlot === 'WR2' && toSlot === 'WR1')) {
+      // For WR1 to WR2, start at top-left corner of first card and top-right corner of second card
+      const isWR1ToWR2 = fromSlot === 'WR1';
+      const firstCard = isWR1ToWR2 ? fromPos : toPos;
+      const secondCard = isWR1ToWR2 ? toPos : fromPos;
+      
+      // Top-left corner of first card, moved down 2px
+      const x1 = firstCard.x - firstCard.width / 2 + 130;
+      const y1 = firstCard.y - firstCard.height / 2 + 2;
+      
+      // Top-right corner of second card, moved down 2px
+      const x2 = secondCard.x + secondCard.width / 2 - 130;
+      const y2 = secondCard.y - secondCard.height / 2 + 2;
+      
+      return { x1, y1, x2, y2 };
+    }
+    
+    // Default behavior for other connections
     // Calculate the direction vector between centers
     const dx = toPos.x - fromPos.x;
     const dy = toPos.y - fromPos.y;
@@ -144,21 +210,21 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
     const fromRadius = Math.max(fromPos.width, fromPos.height) / 2;
     const toRadius = Math.max(toPos.width, toPos.height) / 2;
     
-    // Calculate start point (edge of first card)
-    const x1 = fromPos.x + unitX * fromRadius;
-    const y1 = fromPos.y + unitY * fromRadius;
+    // Calculate start point (edge of first card) - stop exactly at the edge
+    const x1 = fromPos.x + unitX * (fromRadius - 1);
+    const y1 = fromPos.y + unitY * (fromRadius - 1);
     
-    // Calculate end point (edge of second card)
-    const x2 = toPos.x - unitX * toRadius;
-    const y2 = toPos.y - unitY * toRadius;
+    // Calculate end point (edge of second card) - stop exactly at the edge
+    const x2 = toPos.x - unitX * (toRadius - 1);
+    const y2 = toPos.y - unitY * (toRadius - 1);
     
     return { x1, y1, x2, y2 };
   };
 
   // Get connection color based on player attributes
   const getConnectionColor = (from: string, to: string, defaultColor: string): string => {
-    const fromPlayer = getPlayerByPosition(from);
-    const toPlayer = getPlayerByPosition(to);
+    const fromPlayer = getPlayerByFantasySlot(from);
+    const toPlayer = getPlayerByFantasySlot(to);
     
     if (!fromPlayer || !toPlayer) return defaultColor;
     
@@ -176,21 +242,35 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
     return defaultColor + '80'; // Add transparency
   };
 
+  // Debug logging
+  console.log('TeamFormation render:', { demoMode, usersCount: users.length, selectedUserId, playersCount: players.length });
+  console.log('Players data:', players);
+
   return (
     <div className="team-formation">
       {/* Header */}
       <div className="formation-header">
-        <div className="username-input-container">
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Enter username"
-            className="username-input"
-            maxLength={20}
-          />
-        </div>
-        <h1 className="team-title">{username}'s Team</h1>
+        {!demoMode && (
+          <div className="username-input-container">
+            <select
+              value={selectedUserId}
+              onChange={(e) => handleUserChange(e.target.value)}
+              className="username-select"
+            >
+              <option value="">Select a user</option>
+              {users.length > 0 ? (
+                users.map(user => (
+                  <option key={user.user_id} value={user.user_id}>
+                    {user.display_name} {user.metadata?.team_name ? `(${user.metadata.team_name})` : ''}
+                  </option>
+                ))
+              ) : (
+                <option value="" disabled>Loading users...</option>
+              )}
+            </select>
+          </div>
+        )}
+        <h1 className="team-title">{demoMode ? "Demo Team" : (username ? `${username}'s Team` : "My Team")}</h1>
       </div>
 
       {/* Football Field */}
@@ -204,7 +284,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
             if (!fromPos || !toPos) return null;
             
             const color = getConnectionColor(connection.from, connection.to, connection.color);
-            const endpoints = getConnectionEndpoints(fromPos, toPos);
+            const endpoints = getConnectionEndpoints(fromPos, toPos, connection.from, connection.to);
             
             return (
               <line
@@ -228,7 +308,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
           
           {/* Kicker Row */}
           <div className="position-group kicker-row">
-            {getPlayersByPositions(['K']).map((player, index) => (
+            {getPlayersByFantasySlots(['K']).map((player, index) => (
               <div
                 key={`k-${index}`}
                 ref={(el) => { playerRefs.current['K'] = el; }}
@@ -247,7 +327,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
           <div className="position-group top-row">
             {/* WR1 */}
             <div className="position-group wr-group">
-              {getPlayersByPositions(['WR1']).map((player, index) => (
+              {getPlayersByFantasySlots(['WR1']).map((player, index) => (
                 <div
                   key={`wr1-${index}`}
                   ref={(el) => { playerRefs.current['WR1'] = el; }}
@@ -264,7 +344,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
             
             {/* Flex1 */}
             <div className="position-group flex-group">
-              {getPlayersByPositions(['Flex1']).map((player, index) => (
+              {getPlayersByFantasySlots(['Flex1']).map((player, index) => (
                 <div
                   key={`flex1-${index}`}
                   ref={(el) => { playerRefs.current['Flex1'] = el; }}
@@ -281,7 +361,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
             
             {/* TE */}
             <div className="position-group te-group">
-              {getPlayersByPositions(['TE']).map((player, index) => (
+              {getPlayersByFantasySlots(['TE']).map((player, index) => (
                 <div
                   key={`te-${index}`}
                   ref={(el) => { playerRefs.current['TE'] = el; }}
@@ -289,7 +369,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
                   <PlayerCard
                     player={player}
                     position="TE"
-                    className="te-player"
+                    className="flex-player"
                     multiplier={calculatePlayerMultiplier('TE')}
                   />
                 </div>
@@ -298,7 +378,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
             
             {/* Flex2 */}
             <div className="position-group flex-group">
-              {getPlayersByPositions(['Flex2']).map((player, index) => (
+              {getPlayersByFantasySlots(['Flex2']).map((player, index) => (
                 <div
                   key={`flex2-${index}`}
                   ref={(el) => { playerRefs.current['Flex2'] = el; }}
@@ -315,7 +395,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
             
             {/* WR2 */}
             <div className="position-group wr-group">
-              {getPlayersByPositions(['WR2']).map((player, index) => (
+              {getPlayersByFantasySlots(['WR2']).map((player, index) => (
                 <div
                   key={`wr2-${index}`}
                   ref={(el) => { playerRefs.current['WR2'] = el; }}
@@ -333,7 +413,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
 
           {/* Middle Row: QB */}
           <div className="position-group qb-group">
-            {getPlayersByPositions(formation.offense.qb).map((player, index) => (
+            {getPlayersByFantasySlots(formation.offense.qb).map((player, index) => (
               <div
                 key={`qb-${index}`}
                 ref={(el) => { playerRefs.current['QB'] = el; }}
@@ -350,7 +430,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
 
           {/* Bottom Row: RB1, RB2 */}
           <div className="position-group rb-group">
-            {getPlayersByPositions(formation.offense.rb).map((player, index) => (
+            {getPlayersByFantasySlots(formation.offense.rb).map((player, index) => (
               <div
                 key={`rb-${index}`}
                 ref={(el) => { playerRefs.current[formation.offense.rb[index]] = el; }}
@@ -372,7 +452,7 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players }) => {
         <div className="bench-label">BENCH</div>
         <div className="bench-players">
           {players
-            .filter(player => player.position === 'Bench')
+            .filter(player => player.fantasySlot === 'Bench')
             .map((player, index) => (
               <PlayerCard
                 key={`bench-${index}`}

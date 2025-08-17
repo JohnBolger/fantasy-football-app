@@ -3,7 +3,7 @@ import './PlayerCard.css';
 import { Player } from '../types/Player';
 
 interface PlayerCardProps {
-  player: Player | null;
+  player: Player | undefined;
   position: string;
   className?: string;
   multiplier?: number;
@@ -37,18 +37,18 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
           />
         ) : null}
         <div className={`player-photo-fallback ${player.photo_url ? 'hidden' : ''}`}>
-          {player.name.split(' ').map(n => n[0]).join('')}
+          {player.name ? player.name.split(' ').map(n => n[0]).join('') : 'N/A'}
         </div>
       </div>
       
                         <div className="player-info">
-                    <div className="player-name">{player.name}</div>
+                    <div className="player-name">{player.name || 'Unknown Player'}</div>
                     <div className="player-team-college">
-                      {player.team}
+                      {player.team || 'N/A'}
                       {player.college && (
                         <span className="college-separator"> • </span>
                       )}
-                      {player.college}
+                      {player.college || ''}
                     </div>
                   </div>
       

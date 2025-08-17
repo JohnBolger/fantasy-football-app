@@ -49,6 +49,39 @@
   border-color: #04af95;
 }
 
+.username-select {
+  background: rgba(244, 245, 246, 0.1);
+  border: 2px solid #04af95;
+  border-radius: 25px;
+  padding: 10px 20px;
+  color: #f4f5f6;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  width: 200px;
+  transition: all 0.3s ease;
+  outline: none;
+  cursor: pointer;
+}
+
+.username-select:focus {
+  background: rgba(244, 245, 246, 0.15);
+  border-color: #04af95;
+  box-shadow: 0 0 15px rgba(4, 175, 149, 0.3);
+  transform: scale(1.02);
+}
+
+.username-select:hover {
+  background: rgba(244, 245, 246, 0.12);
+  border-color: #04af95;
+}
+
+.username-select option {
+  background: #0e2543;
+  color: #f4f5f6;
+  padding: 8px;
+}
+
 .team-title {
   font-size: 2.5rem;
   font-weight: bold;
@@ -118,6 +151,25 @@
   justify-content: space-around;
   max-width: 100%;
 }
+
+/* Separate WR positioning while maintaining same visual layout */
+.wr-group {
+  /* WR-specific styling can go here */
+  position: relative;
+  margin-top: -15px; /* Move only WR players upward by 30px */
+}
+
+.flex-group {
+  /* Flex position styling */
+  position: relative;
+}
+
+.te-group {
+  /* Tight end styling */
+  position: relative;
+}
+
+/* Visual separators removed - keeping separate classes for future styling flexibility */
 
 .qb-group {
   margin: 30px 0;

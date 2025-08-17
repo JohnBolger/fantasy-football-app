@@ -1,7 +1,8 @@
 export interface Player {
   id: string;
   name: string;
-  position: string;
+  position: string;        // Actual NFL position: QB, RB, WR, TE, K
+  fantasySlot: string;     // Fantasy lineup position: QB, RB1, RB2, WR1, WR2, TE, Flex1, Flex2, K
   team: string;
   rank?: number;
   points?: number;

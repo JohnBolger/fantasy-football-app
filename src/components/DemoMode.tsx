@@ -6,7 +6,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4039',
     name: 'Jalen Hurts',
-    position: 'QB',
+    position: 'QB',           // Actual NFL position
+    fantasySlot: 'QB',        // Fantasy lineup position
     team: 'PHI',
     college: 'Oklahoma',
     rank: 1,
@@ -18,7 +19,8 @@ export const demoPlayers: Player[] = [
   {
     id: '642',
     name: 'D\'Andre Swift',
-    position: 'RB1',
+    position: 'RB',           // Actual NFL position
+    fantasySlot: 'RB1',       // Fantasy lineup position
     team: 'PHI',
     college: 'Georgia',
     rank: 15,
@@ -30,7 +32,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4034',
     name: 'Kenneth Gainwell',
-    position: 'RB2',
+    position: 'RB',           // Actual NFL position
+    fantasySlot: 'RB2',       // Fantasy lineup position
     team: 'PHI',
     college: 'Memphis',
     rank: 45,
@@ -42,7 +45,8 @@ export const demoPlayers: Player[] = [
   {
     id: '147',
     name: 'A.J. Brown',
-    position: 'WR1',
+    position: 'WR',           // Actual NFL position
+    fantasySlot: 'WR1',       // Fantasy lineup position
     team: 'PHI',
     college: 'Ole Miss',
     rank: 5,
@@ -54,7 +58,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4038',
     name: 'DeVonta Smith',
-    position: 'WR2',
+    position: 'WR',           // Actual NFL position
+    fantasySlot: 'WR2',       // Fantasy lineup position
     team: 'PHI',
     college: 'Alabama',
     rank: 12,
@@ -66,7 +71,8 @@ export const demoPlayers: Player[] = [
   {
     id: '515',
     name: 'Dallas Goedert',
-    position: 'TE',
+    position: 'TE',           // Actual NFL position
+    fantasySlot: 'TE',        // Fantasy lineup position
     team: 'PHI',
     college: 'South Dakota State',
     rank: 8,
@@ -78,7 +84,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4149',
     name: 'Quez Watkins',
-    position: 'Flex1',
+    position: 'WR',           // Actual NFL position
+    fantasySlot: 'Flex1',     // Fantasy lineup position
     team: 'PHI',
     college: 'Southern Miss',
     rank: 65,
@@ -90,7 +97,8 @@ export const demoPlayers: Player[] = [
   {
     id: '2257',
     name: 'Olamide Zaccheaus',
-    position: 'Flex2',
+    position: 'WR',           // Actual NFL position
+    fantasySlot: 'Flex2',     // Fantasy lineup position
     team: 'PHI',
     college: 'Virginia',
     rank: 85,
@@ -102,7 +110,8 @@ export const demoPlayers: Player[] = [
   {
     id: '2307',
     name: 'Jake Elliott',
-    position: 'K',
+    position: 'K',            // Actual NFL position
+    fantasySlot: 'K',         // Fantasy lineup position
     team: 'PHI',
     college: 'Memphis',
     rank: 3,
@@ -115,7 +124,8 @@ export const demoPlayers: Player[] = [
   {
     id: '2309',
     name: 'Marcus Mariota',
-    position: 'Bench',
+    position: 'QB',           // Actual NFL position
+    fantasySlot: 'Bench',     // Fantasy lineup position
     team: 'PHI',
     college: 'Oregon',
     rank: 25,
@@ -127,7 +137,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4035',
     name: 'Rashaad Penny',
-    position: 'Bench',
+    position: 'RB',           // Actual NFL position
+    fantasySlot: 'Bench',     // Fantasy lineup position
     team: 'PHI',
     college: 'San Diego State',
     rank: 35,
@@ -139,7 +150,8 @@ export const demoPlayers: Player[] = [
   {
     id: '4381',
     name: 'Britain Covey',
-    position: 'Bench',
+    position: 'WR',           // Actual NFL position
+    fantasySlot: 'Bench',     // Fantasy lineup position
     team: 'PHI',
     college: 'Utah',
     rank: 95,
@@ -151,7 +163,8 @@ export const demoPlayers: Player[] = [
   {
     id: '5849',
     name: 'Grant Calcaterra',
-    position: 'Bench',
+    position: 'TE',           // Actual NFL position
+    fantasySlot: 'Bench',     // Fantasy lineup position
     team: 'PHI',
     college: 'SMU',
     rank: 28,
@@ -162,26 +175,8 @@ export const demoPlayers: Player[] = [
   }
 ];
 
-// Map fantasy football positions to football formation positions
-export const positionMapping: Record<string, string> = {
-  // Offense
-  'QB': 'QB',           // Quarterback
-  'RB': 'RB1',          // Running Back
-  'RB1': 'RB1',         // Running Back 1
-  'RB2': 'RB2',         // Running Back 2
-  'WR': 'WR1',          // Wide Receiver
-  'WR1': 'WR1',         // Wide Receiver 1
-  'WR2': 'WR2',         // Wide Receiver 2
-  'Flex1': 'Flex1',     // Flex Position 1
-  'Flex2': 'Flex2',     // Flex Position 2
-  'TE': 'TE',           // Tight End
-  'Bench': 'Bench'      // Bench Players
-};
-
 // Transform fantasy football players to football formation positions
+// Now we use fantasySlot for lineup positions, so no transformation needed
 export const transformPlayersForFormation = (players: Player[]): Player[] => {
-  return players.map(player => ({
-    ...player,
-    position: positionMapping[player.position] || player.position
-  }));
+  return players; // No transformation needed since fantasySlot is already set
 };

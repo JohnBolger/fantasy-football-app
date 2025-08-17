@@ -10,6 +10,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [demoMode, setDemoMode] = useState(true);
+  const [selectedUserId, setSelectedUserId] = useState<string>('');
 
   useEffect(() => {
     if (demoMode) {
@@ -17,26 +18,31 @@ function App() {
       const transformedDemoPlayers = transformPlayersForFormation(demoPlayers);
       setPlayers(transformedDemoPlayers);
     } else {
-      // Fetch real data from Sleeper API
-      const fetchTeam = async () => {
-        try {
-          setLoading(true);
-          
-          // Get the first team from the league
-          const teamData = await SleeperAPI.getFirstTeam();
-          setPlayers(teamData);
-        } catch (err) {
-          const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
-          setError(`Failed to fetch team data: ${errorMessage}`);
-          console.error('Error fetching team:', err);
-        } finally {
-          setLoading(false);
-        }
-      };
+      // Clear players when switching to Live Mode
+      setPlayers([]);
+      
+      // Only fetch team data if a user is selected
+      if (selectedUserId) {
+        const fetchTeam = async () => {
+          try {
+            setLoading(true);
+            
+            // Get the specific user's team from the league
+            const teamData = await SleeperAPI.getUserTeam(selectedUserId);
+            setPlayers(teamData);
+          } catch (err) {
+            const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+            setError(`Failed to fetch team data: ${errorMessage}`);
+            console.error('Error fetching team:', err);
+          } finally {
+            setLoading(false);
+          }
+        };
 
-      fetchTeam();
+        fetchTeam();
+      }
     }
-  }, [demoMode]);
+  }, [demoMode, selectedUserId]);
 
   if (loading) {
     return (
@@ -52,11 +58,14 @@ function App() {
         <div className="error">
           <h2>Error</h2>
           <p>{error}</p>
-          <p>Please update the user ID in src/App.tsx</p>
+          <p>Please select a user from the dropdown</p>
         </div>
       </div>
     );
   }
+
+  // Always show TeamFormation when in Live Mode, even if no user is selected
+  // The dropdown will be visible and allow user selection
 
   return (
     <div className="app">
@@ -74,7 +83,12 @@ function App() {
           Live Mode
         </button>
       </div>
-      <TeamFormation players={players} />
+      <TeamFormation 
+        players={players} 
+        demoMode={demoMode} 
+        onUserSelect={setSelectedUserId}
+        selectedUserId={selectedUserId}
+      />
     </div>
   );
 }

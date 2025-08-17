@@ -1,12 +1,30 @@
 import { Player, SleeperPlayer } from '../types/Player';
 
+interface SleeperRoster {
+  owner_id: string;
+  starters: string[];
+  players: string[];
+  roster_id: number;
+}
+
 export class SleeperAPI {
   private static baseUrl = 'https://api.sleeper.app/v1';
   private static leagueId = '1180234285068509184';
+  
+  // Rate limiting protection
+  private static lastApiCall = 0;
+  private static minInterval = 1000; // 1 second between calls
 
-  // Get the first team from the league rosters
-  static async getFirstTeam(): Promise<Player[]> {
+  // Get a specific user's team from the league rosters
+  static async getUserTeam(userId?: string): Promise<Player[]> {
     try {
+      // Rate limiting check
+      const now = Date.now();
+      if (now - this.lastApiCall < this.minInterval) {
+        throw new Error('API calls too frequent. Please wait before making another request.');
+      }
+      this.lastApiCall = now;
+      
       // Get rosters from API to get current team assignments
       const rosterUrl = `${this.baseUrl}/league/${this.leagueId}/rosters`;
       console.log('Fetching rosters from:', rosterUrl);
@@ -30,43 +48,72 @@ export class SleeperAPI {
         throw new Error('API returned non-JSON response');
       }
       
-      const rosters = await rostersResponse.json();
+      const rosters: SleeperRoster[] = await rostersResponse.json();
       console.log('Rosters received:', rosters);
 
-      // Get the first roster (first team in the league)
-      const firstRoster = rosters[0];
-      if (!firstRoster) {
-        throw new Error('No rosters found in league');
+      // Find the specific user's roster
+      let userRoster;
+      if (userId) {
+        userRoster = rosters.find(roster => roster.owner_id === userId);
+        if (!userRoster) {
+          throw new Error(`No roster found for user ID: ${userId}`);
+        }
+        console.log('Using user roster:', userRoster);
+      } else {
+        // Fallback to first roster if no userId provided
+        userRoster = rosters[0];
+        if (!userRoster) {
+          throw new Error('No rosters found in league');
+        }
+        console.log('Using first roster (fallback):', userRoster);
       }
-      
-      console.log('Using first roster:', firstRoster);
 
-      // Get only the starters from the roster (in order: QB, RB1, RB2, WR1, WR2, Flex1, Flex2, TE)
-      const starterIds = firstRoster.starters || [];
+      // Get starters and all players from the roster
+      const starterIds = userRoster.starters || [];
+      const allRosterPlayerIds = userRoster.players || [];
       
       console.log('Starter IDs found:', starterIds);
+      console.log('All roster player IDs:', allRosterPlayerIds);
 
       // Load player details from local JSON file
       const allPlayers = await this.getPlayersFromLocal();
       
-      // Map starters to positions in order
-      const positionOrder = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'Flex1', 'Flex2', 'K'];
+      // Map starters to fantasy slots in order
+      const fantasySlotOrder = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'Flex1', 'Flex2', 'K'];
       const players: Player[] = [];
       
-      for (let i = 0; i < starterIds.length && i < positionOrder.length; i++) {
+      // Add starters with fantasy slots
+      for (let i = 0; i < starterIds.length && i < fantasySlotOrder.length; i++) {
         const playerId = starterIds[i];
-        const position = positionOrder[i];
+        const fantasySlot = fantasySlotOrder[i];
         const sleeperPlayer = allPlayers[playerId];
         
         if (sleeperPlayer) {
           const player = this.transformPlayers({ [playerId]: sleeperPlayer })[0];
-          // Override the position with our mapped position
-          player.position = position;
+          // Set fantasy slot while keeping original position
+          player.fantasySlot = fantasySlot;
+          players.push(player);
+        }
+      }
+      
+      // Add bench players (players not in starters array)
+      const benchPlayerIds = allRosterPlayerIds.filter(id => !starterIds.includes(id));
+      console.log('Bench player IDs found:', benchPlayerIds);
+      
+      for (const playerId of benchPlayerIds) {
+        const sleeperPlayer = allPlayers[playerId];
+        
+        if (sleeperPlayer) {
+          const player = this.transformPlayers({ [playerId]: sleeperPlayer })[0];
+          // Set fantasy slot to 'Bench' for bench players
+          player.fantasySlot = 'Bench';
           players.push(player);
         }
       }
 
-      console.log('Players found in local data:', players);
+      console.log('Total players found (starters + bench):', players.length);
+      console.log('Starters:', players.filter(p => p.position !== 'Bench').length);
+      console.log('Bench players:', players.filter(p => p.position === 'Bench').length);
       return players;
     } catch (error) {
       console.error('Error in getFirstTeam:', error);
@@ -164,7 +211,8 @@ export class SleeperAPI {
     return Object.values(sleeperPlayers).map(sleeperPlayer => ({
       id: sleeperPlayer.player_id,
       name: sleeperPlayer.full_name, // Map from full_name
-      position: sleeperPlayer.position,
+      position: sleeperPlayer.position, // Actual NFL position: QB, RB, WR, TE, K
+      fantasySlot: '', // Will be set by caller based on fantasy lineup
       team: sleeperPlayer.team, // This should work as is
       rank: sleeperPlayer.search_rank, // Map from search_rank
       points: sleeperPlayer.fantasy_points || 0, // Default to 0 if not present
