@@ -2,12 +2,15 @@ import React, { useRef, useEffect, useState } from 'react';
 import './TeamFormation.css';
 import { Player } from '../types/Player';
 import PlayerCard from './PlayerCard';
+import PlayerSelectionModal from './PlayerSelectionModal';
+import PlayerInspect from './PlayerInspect';
 
 interface TeamFormationProps {
   players: Player[];
   demoMode?: boolean;
   onUserSelect: (userId: string) => void;
   selectedUserId: string;
+  onLineupChange: (updatedPlayers: Player[]) => void;
 }
 
 interface User {
@@ -24,11 +27,14 @@ interface Connection {
   color: string;
 }
 
-const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false, onUserSelect, selectedUserId }) => {
+const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false, onUserSelect, selectedUserId, onLineupChange }) => {
   const [playerPositions, setPlayerPositions] = useState<Record<string, { x: number; y: number; width: number; height: number }>>({});
   const playerRefs = useRef<Record<string, HTMLDivElement | null>>({});
   const [username, setUsername] = useState<string>('');
   const [users, setUsers] = useState<User[]>([]);
+  const [selectedPosition, setSelectedPosition] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inspectPlayer, setInspectPlayer] = useState<{ player: Player; position: string; multiplier?: number } | null>(null);
 
   // Define the football formation positions
   const formation = {
@@ -97,6 +103,16 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
     if (selectedUser) {
       setUsername(selectedUser.display_name);
     }
+  };
+
+  // Handle player inspection
+  const handlePlayerInspect = (player: Player, position: string, multiplier?: number) => {
+    setInspectPlayer({ player, position, multiplier });
+  };
+
+  // Close inspect modal
+  const closeInspectModal = () => {
+    setInspectPlayer(null);
   };
 
   // Fetch users from users.json
@@ -242,6 +258,34 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
     return defaultColor + '80'; // Add transparency
   };
 
+  // Handle position click to open player selection modal
+  const handlePositionClick = (fantasySlot: string) => {
+    setSelectedPosition(fantasySlot);
+    setIsModalOpen(true);
+  };
+
+  // Handle player selection from modal
+  const handlePlayerSelect = (player: Player, targetSlot: string) => {
+    const currentSlot = player.fantasySlot;
+    
+    // Find if there's already a player in the target slot
+    const targetPlayer = getPlayerByFantasySlot(targetSlot);
+    
+    // Create updated players array
+    const updatedPlayers = players.map(p => {
+      if (p.id === player.id) {
+        return { ...p, fantasySlot: targetSlot };
+      }
+      if (targetPlayer && p.id === targetPlayer.id) {
+        return { ...p, fantasySlot: currentSlot };
+      }
+      return p;
+    });
+
+    // Update the players state
+    onLineupChange(updatedPlayers);
+  };
+
   // Debug logging
   console.log('TeamFormation render:', { demoMode, usersCount: users.length, selectedUserId, playersCount: players.length });
   console.log('Players data:', players);
@@ -275,32 +319,6 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
 
       {/* Football Field */}
       <div className="football-field">
-        {/* SVG Connection Lines */}
-        <svg className="connection-lines" width="100%" height="100%" style={{ position: 'absolute', top: 0, left: 0, pointerEvents: 'none' }}>
-          {connections.map((connection, index) => {
-            const fromPos = playerPositions[connection.from];
-            const toPos = playerPositions[connection.to];
-            
-            if (!fromPos || !toPos) return null;
-            
-            const color = getConnectionColor(connection.from, connection.to, connection.color);
-            const endpoints = getConnectionEndpoints(fromPos, toPos, connection.from, connection.to);
-            
-            return (
-              <line
-                key={`${connection.from}-${connection.to}-${index}`}
-                x1={endpoints.x1}
-                y1={endpoints.y1}
-                x2={endpoints.x2}
-                y2={endpoints.y2}
-                stroke={color}
-                strokeWidth="2"
-                strokeOpacity="0.7"
-                className="player-connection"
-              />
-            );
-          })}
-        </svg>
 
         {/* Offensive Formation */}
         <div className="formation-section offense-section">
@@ -318,6 +336,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                   position="K"
                   className="k-player"
                   multiplier={calculatePlayerMultiplier('K')}
+                  onClick={() => handlePositionClick('K')}
+                  onInspect={() => handlePlayerInspect(player, 'K', calculatePlayerMultiplier('K'))}
+                  onSwap={() => handlePositionClick('K')}
                 />
               </div>
             ))}
@@ -337,6 +358,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                     position="WR1"
                     className="wr-player"
                     multiplier={calculatePlayerMultiplier('WR1')}
+                    onClick={() => handlePositionClick('WR1')}
+                    onInspect={() => handlePlayerInspect(player, 'WR1', calculatePlayerMultiplier('WR1'))}
+                    onSwap={() => handlePositionClick('WR1')}
                   />
                 </div>
               ))}
@@ -354,6 +378,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                     position="Flex1"
                     className="flex-player"
                     multiplier={calculatePlayerMultiplier('Flex1')}
+                    onClick={() => handlePositionClick('Flex1')}
+                    onInspect={() => handlePlayerInspect(player, 'Flex1', calculatePlayerMultiplier('Flex1'))}
+                    onSwap={() => handlePositionClick('Flex1')}
                   />
                 </div>
               ))}
@@ -369,8 +396,11 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                   <PlayerCard
                     player={player}
                     position="TE"
-                    className="flex-player"
+                    className="te-player"
                     multiplier={calculatePlayerMultiplier('TE')}
+                    onClick={() => handlePositionClick('TE')}
+                    onInspect={() => handlePlayerInspect(player, 'TE', calculatePlayerMultiplier('TE'))}
+                    onSwap={() => handlePositionClick('TE')}
                   />
                 </div>
               ))}
@@ -388,6 +418,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                     position="Flex2"
                     className="flex-player"
                     multiplier={calculatePlayerMultiplier('Flex2')}
+                    onClick={() => handlePositionClick('Flex2')}
+                    onInspect={() => handlePlayerInspect(player, 'Flex2', calculatePlayerMultiplier('Flex2'))}
+                    onSwap={() => handlePositionClick('Flex2')}
                   />
                 </div>
               ))}
@@ -405,6 +438,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                     position="WR2"
                     className="wr-player"
                     multiplier={calculatePlayerMultiplier('WR2')}
+                    onClick={() => handlePositionClick('WR2')}
+                    onInspect={() => handlePlayerInspect(player, 'WR2', calculatePlayerMultiplier('WR2'))}
+                    onSwap={() => handlePositionClick('WR2')}
                   />
                 </div>
               ))}
@@ -423,6 +459,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                   position={formation.offense.qb[index]}
                   className="qb-player"
                   multiplier={calculatePlayerMultiplier('QB')}
+                  onClick={() => handlePositionClick('QB')}
+                  onInspect={() => handlePlayerInspect(player, formation.offense.qb[index], calculatePlayerMultiplier('QB'))}
+                  onSwap={() => handlePositionClick('QB')}
                 />
               </div>
             ))}
@@ -440,6 +479,9 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                   position={formation.offense.rb[index]}
                   className="rb-player"
                   multiplier={calculatePlayerMultiplier(formation.offense.rb[index])}
+                  onClick={() => handlePositionClick(formation.offense.rb[index])}
+                  onInspect={() => handlePlayerInspect(player, formation.offense.rb[index], calculatePlayerMultiplier(formation.offense.rb[index]))}
+                  onSwap={() => handlePositionClick(formation.offense.rb[index])}
                 />
               </div>
             ))}
@@ -460,10 +502,44 @@ const TeamFormation: React.FC<TeamFormationProps> = ({ players, demoMode = false
                 position="Bench"
                 className="bench-player"
                 multiplier={calculatePlayerMultiplier('Bench')}
+                onClick={() => handlePositionClick('Bench')}
+                onInspect={() => handlePlayerInspect(player, 'Bench', calculatePlayerMultiplier('Bench'))}
+                onSwap={() => handlePositionClick('Bench')}
               />
             ))}
         </div>
       </div>
+
+      {/* Player Selection Modal */}
+      <PlayerSelectionModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        position={selectedPosition || ''}
+        availablePlayers={players}
+        onPlayerSelect={handlePlayerSelect}
+      />
+
+      {/* Player Inspect Modal */}
+      {inspectPlayer && (
+        <PlayerInspect
+          player={inspectPlayer.player}
+          position={inspectPlayer.position}
+          multiplier={inspectPlayer.multiplier}
+          onClose={closeInspectModal}
+          isVisible={true}
+          teamFormation={{
+            'QB': getPlayerByFantasySlot('QB') || undefined,
+            'RB1': getPlayerByFantasySlot('RB1') || undefined,
+            'RB2': getPlayerByFantasySlot('RB2') || undefined,
+            'WR1': getPlayerByFantasySlot('WR1') || undefined,
+            'WR2': getPlayerByFantasySlot('WR2') || undefined,
+            'Flex1': getPlayerByFantasySlot('Flex1') || undefined,
+            'Flex2': getPlayerByFantasySlot('Flex2') || undefined,
+            'TE': getPlayerByFantasySlot('TE') || undefined,
+            'K': getPlayerByFantasySlot('K') || undefined
+          }}
+        />
+      )}
     </div>
   );
 };

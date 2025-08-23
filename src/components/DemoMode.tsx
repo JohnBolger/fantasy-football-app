@@ -11,7 +11,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Oklahoma',
     rank: 1,
-    points: 0,
+    points: 22,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4039.jpg'
@@ -24,7 +24,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Georgia',
     rank: 15,
-    points: 0,
+    points: 9,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/642.jpg'
@@ -37,7 +37,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Memphis',
     rank: 45,
-    points: 0,
+    points: 3.4,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4034.jpg'
@@ -50,7 +50,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Ole Miss',
     rank: 5,
-    points: 0,
+    points: 10.5,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/147.jpg'
@@ -63,7 +63,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Alabama',
     rank: 12,
-    points: 0,
+    points: 19.3,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4038.jpg'
@@ -76,7 +76,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'South Dakota State',
     rank: 8,
-    points: 0,
+    points: 6.2,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/515.jpg'
@@ -89,7 +89,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Southern Miss',
     rank: 65,
-    points: 0,
+    points: 1.2,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4149.jpg'
@@ -102,7 +102,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Virginia',
     rank: 85,
-    points: 0,
+    points: 7.3,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2257.jpg'
@@ -115,7 +115,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Memphis',
     rank: 3,
-    points: 0,
+    points: 10.2,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2307.jpg'
@@ -129,7 +129,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'Oregon',
     rank: 25,
-    points: 0,
+    points: 3.5,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2309.jpg'
@@ -142,7 +142,7 @@ export const demoPlayers: Player[] = [
     team: 'PHI',
     college: 'San Diego State',
     rank: 35,
-    points: 0,
+    points: 1,
     projected_points: 0,
     status: 'Active',
     photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4035.jpg'

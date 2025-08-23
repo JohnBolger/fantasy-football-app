@@ -92,35 +92,6 @@
   text-shadow: 0 2px 10px rgba(4, 175, 149, 0.3);
 }
 
-.football-field {
-  border-radius: 20px;
-  padding: 30px;
-  margin-bottom: 30px;
-  position: relative;
-  border: 3px solid #04af95;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  overflow: hidden;
-}
-
-.field-markings {
-  display: none;
-}
-
-.endzone-left, .endzone-right {
-  display: none;
-}
-
-.yard-lines {
-  display: none;
-}
-
-.yard-lines > div {
-  display: none;
-}
-
-.hash-marks {
-  display: none;
-}
 
 .formation-section {
   margin-bottom: 30px;
@@ -212,54 +183,7 @@
   max-width: 100%;
 }
 
-/* SVG Connection Lines */
-.connection-lines {
-  z-index: 10;
-  overflow: visible;
-}
-
-.player-connection {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  transition: all 0.3s ease;
-  cursor: pointer;
-}
-
-.player-connection:hover {
-  stroke-width: 3;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
-  stroke-opacity: 1;
-}
-
-/* Animation for connection lines */
-@keyframes connectionPulse {
-  0% { stroke-opacity: 0.7; }
-  50% { stroke-opacity: 1; }
-  100% { stroke-opacity: 0.7; }
-}
-
-.player-connection {
-  animation: connectionPulse 3s ease-in-out infinite;
-}
-
-/* Different animation delays for visual variety */
-.player-connection:nth-child(odd) {
-  animation-delay: 0s;
-}
-
-.player-connection:nth-child(even) {
-  animation-delay: 1.5s;
-}
-
-/* Responsive adjustments for connection lines */
-@media (max-width: 768px) {
-  .player-connection {
-    stroke-width: 1.5;
-  }
-  
-  .player-connection:hover {
-    stroke-width: 2;
-  }
-}
+/* Connection lines removed - replaced with glow effects on player cards */
 
 /* Enhanced Mobile Responsive Design */
 @media (max-width: 768px) {
@@ -285,11 +209,7 @@
     letter-spacing: 1px;
   }
   
-  .football-field {
-    padding: 15px;
-    margin-bottom: 20px;
-  }
-  
+
   .section-title {
     font-size: 1.2rem;
     margin-bottom: 15px;

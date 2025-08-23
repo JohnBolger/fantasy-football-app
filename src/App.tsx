@@ -4,6 +4,7 @@ import TeamFormation from './components/TeamFormation';
 import { SleeperAPI } from './services/SleeperAPI';
 import { Player } from './types/Player';
 import { demoPlayers, transformPlayersForFormation } from './components/DemoMode';
+import Background from './components/Background';
 
 function App() {
   const [players, setPlayers] = useState<Player[]>([]);
@@ -47,6 +48,7 @@ function App() {
   if (loading) {
     return (
       <div className="app">
+        <Background />
         <div className="loading">Loading your team...</div>
       </div>
     );
@@ -55,6 +57,7 @@ function App() {
   if (error) {
     return (
       <div className="app">
+        <Background />
         <div className="error">
           <h2>Error</h2>
           <p>{error}</p>
@@ -67,8 +70,14 @@ function App() {
   // Always show TeamFormation when in Live Mode, even if no user is selected
   // The dropdown will be visible and allow user selection
 
+  // Handle lineup changes
+  const handleLineupChange = (updatedPlayers: Player[]) => {
+    setPlayers(updatedPlayers);
+  };
+
   return (
     <div className="app">
+      <Background />
       <div className="demo-toggle">
         <button 
           className={`toggle-btn ${demoMode ? 'active' : ''}`}
@@ -88,9 +97,12 @@ function App() {
         demoMode={demoMode} 
         onUserSelect={setSelectedUserId}
         selectedUserId={selectedUserId}
+        onLineupChange={handleLineupChange}
       />
     </div>
   );
 }
+
+
 
 export default App;
