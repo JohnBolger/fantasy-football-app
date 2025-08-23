@@ -1,40 +1,65 @@
 # 🏈 Fantasy Football Team Manager
 
-A dynamic, interactive fantasy football team management application built with React and TypeScript that connects to the Sleeper.app API to display and manage your fantasy football roster.
+A dynamic, interactive fantasy football team management application built with React, TypeScript, and WebGL that features advanced chemistry systems, player inspection tools, and stunning visual effects.
 
 ## ✨ Features
 
-### 🎯 **Team Formation Display**
+### 🎯 **Advanced Team Formation Display**
 - **Custom Formation Layout**: QB, RB1, RB2, WR1, WR2, Flex1, Flex2, TE, and Kicker positions
-- **Interactive Player Cards**: Each player displays name, team, college, and position
+- **Enhanced Player Cards**: Modern React Bits-inspired design with improved layout
+- **Interactive Elements**: Click to inspect players or swap positions
 - **Bench Management**: Dedicated section for bench players
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
 
-### 🔗 **Dynamic Player Connections**
-- **Smart Connection System**: Lines connect players based on team and college relationships
-- **Color-Coded Connections**:
-  - **🟣 Purple**: Same team AND same college (+0.2 multiplier)
-  - **🟢 Green**: Same team OR same college (+0.1 multiplier)
-  - **⚪ Transparent**: Different team and college (no bonus)
+### 🔬 **Player Inspection System**
+- **Detailed Player Modal**: Comprehensive player information display
+- **Chemistry Analysis**: View all player connections and bonus details
+- **Stats Overview**: Base points, chemistry multiplier, final points
+- **Additional Info**: Rank, position, NFL team, and college details
 
-### 📊 **Player Multiplier System**
-- **Dynamic Bonuses**: Players earn multipliers based on their connections
-- **Base Multiplier**: 1.0x for all players
-- **Connection Bonuses**: 
-  - Team/college connections add 0.1x to 0.2x
-  - Visual multiplier badges on player cards
-- **Strategic Insights**: See which players have chemistry bonuses
+### 🎮 **Context Menu Interface**
+- **Right-Click Style Menu**: Click any player card to access options
+- **Inspect Player**: View detailed player information and chemistry
+- **Swap Player**: Easily change player positions
+- **Smooth Animations**: Professional context menu with slide-in effects
 
-### 🎨 **Modern UI/UX**
-- **Custom Theme**: Dark blue/grey color scheme with green accents
-- **Smooth Animations**: Hover effects, connection line animations, and transitions
-- **Professional Design**: Clean, modern interface inspired by professional sports apps
-- **Username Customization**: Personalize your team name with custom username input
+### 🔗 **Dynamic Chemistry Connection System**
+- **Smart Connection Detection**: Automatically determines connection types based on actual player data
+- **Dual Bonus Support**: Players can receive both NFL Team Boost AND College Connection bonuses
+- **Real-Time Updates**: Chemistry connections update automatically when players change
+- **Position-Based Rules**: Each position has specific connection patterns:
+  - **QB**: Connects to WR1, RB1, Flex1, TE
+  - **RB1**: Connects to QB, RB2, Flex1, WR1
+  - **RB2**: Connects to K, RB1, Flex2, WR2
+  - **WR1**: Connects to QB, RB1, Flex1, WR2
+  - **WR2**: Connects to K, RB2, Flex2, WR1
+  - **Flex1**: Connects to QB, RB1, WR1, TE
+  - **Flex2**: Connects to K, RB2, WR2, TE
+  - **TE**: Connects to QB, K, Flex1, Flex2
+  - **K**: Connects to RB2, Flex2, WR2, TE
+
+### 🎨 **Advanced Visual Effects**
+- **WebGL Background**: Sophisticated animated background using OGL library
+- **Enhanced Player Cards**: 15% larger cards with improved glow effects
+- **Multiplier-Based Glowing**: Different glow colors for each multiplier level:
+  - **1.1x**: Yellow glow
+  - **1.2x**: Light green glow
+  - **1.3x**: Dark green glow
+  - **1.4x**: Purple glow
+  - **1.5x**: Galaxy purple glow
+- **Smooth Animations**: Hover effects, transitions, and interactive feedback
+
+### 📊 **Enhanced Player Multiplier System**
+- **Dynamic Chemistry Bonuses**: Each connection provides +10% bonus
+- **Dual Connection Types**: NFL Team Boost and College Connection bonuses stack
+- **Visual Indicators**: Glowing effects and multiplier badges
+- **Real-Time Calculation**: Multipliers update automatically with roster changes
 
 ### 🔌 **Sleeper.app Integration**
 - **Live Data**: Connect to your actual Sleeper fantasy football league
 - **Hybrid Approach**: Uses local player database for details + API for current roster
 - **Demo Mode**: Test the app with sample data before connecting to live league
+- **User Management**: Support for multiple users and team customization
 
 ## 🚀 Getting Started
 
@@ -74,31 +99,40 @@ A dynamic, interactive fantasy football team management application built with R
 - Requires a `players.json` file with player data
 - Automatically fetches your current roster
 
-### **Customizing Your Team**
-- **Change Username**: Type in the input field to personalize your team name
-- **View Connections**: See which players have team/college chemistry
-- **Check Multipliers**: Look for multiplier badges on player cards
-- **Explore Formation**: Navigate through different position groups
+### **Player Interaction**
+- **Click Player Cards**: Opens context menu with inspect/swap options
+- **Inspect Player**: View detailed chemistry connections and player stats
+- **Swap Players**: Change player positions easily
+- **View Chemistry**: See all connection types and bonuses
+
+### **Chemistry System**
+- **Automatic Detection**: Connection types are determined by actual player data
+- **NFL Team Boost**: Shows when players are on the same NFL team
+- **College Connection**: Shows when players attended the same college
+- **Dual Bonuses**: Players can receive both types of bonuses
 
 ## 🛠️ Technical Details
 
 ### **Built With**
 - **React 18** with TypeScript
+- **WebGL/OGL** for advanced background animations
 - **CSS3** with custom animations and responsive design
-- **SVG Graphics** for dynamic connection lines
+- **Modern React Patterns** with hooks and functional components
 - **Sleeper.app API** for live fantasy football data
 
 ### **Architecture**
 - **Component-Based**: Modular React components for maintainability
 - **State Management**: React hooks for local state management
+- **WebGL Integration**: Advanced graphics for background effects
 - **API Integration**: RESTful API calls to Sleeper.app
 - **Responsive Design**: Mobile-first approach with CSS Grid and Flexbox
 
 ### **Key Components**
-- `TeamFormation`: Main formation display and layout
-- `PlayerCard`: Individual player information display
+- `TeamFormation`: Main formation display and layout management
+- `PlayerCard`: Enhanced player cards with context menu
+- `PlayerInspect`: Detailed player inspection modal
+- `Background`: WebGL animated background system
 - `SleeperAPI`: API integration and data fetching
-- `DemoMode`: Sample data and demo functionality
 
 ## 📁 Project Structure
 ```
@@ -108,14 +142,18 @@ fantasy-football-app/
 │   └── index.html
 ├── src/
 │   ├── components/
-│   │   ├── TeamFormation.tsx # Main team display
-│   │   ├── PlayerCard.tsx    # Individual player cards
+│   │   ├── TeamFormation.tsx # Main team display and management
+│   │   ├── PlayerCard.tsx    # Enhanced player cards with context menu
+│   │   ├── PlayerInspect.tsx # Player inspection modal
+│   │   ├── Background.tsx    # WebGL animated background
+│   │   ├── PlayerSelectionModal.tsx # Player swap interface
 │   │   └── DemoMode.tsx      # Sample data
 │   ├── services/
 │   │   └── SleeperAPI.ts     # API integration
 │   ├── types/
 │   │   └── Player.ts         # TypeScript interfaces
-│   └── App.tsx               # Main application
+│   ├── App.tsx               # Main application
+│   └── index.tsx             # Application entry point
 └── README.md
 ```
 
@@ -129,25 +167,46 @@ fantasy-football-app/
 ### **Customization Options**
 - **Theme Colors**: Modify CSS variables in component files
 - **Formation Layout**: Adjust player positions in `TeamFormation.tsx`
-- **Connection Rules**: Customize connection logic and multipliers
+- **Chemistry Rules**: Customize connection logic and bonus amounts
 - **Player Display**: Modify what information shows on player cards
+- **Background Effects**: Adjust WebGL background parameters
 
 ## 🎯 Use Cases
 
 ### **Fantasy Football Managers**
-- **Team Analysis**: Visualize player connections and chemistry
-- **Roster Management**: Organize starters and bench players
-- **Strategy Planning**: Use multipliers to optimize lineups
+- **Team Analysis**: Visualize player connections and chemistry bonuses
+- **Roster Management**: Organize starters and bench players with easy swapping
+- **Strategy Planning**: Use chemistry bonuses to optimize lineups
+- **Player Research**: Detailed player information and connection analysis
 
 ### **Sports Enthusiasts**
-- **Team Visualization**: See your fantasy team in an engaging format
-- **Player Research**: Explore team and college relationships
-- **Performance Tracking**: Monitor player bonuses and connections
+- **Team Visualization**: See your fantasy team in an engaging, modern format
+- **Chemistry Insights**: Understand how player relationships affect performance
+- **Performance Tracking**: Monitor player bonuses and connection multipliers
+- **Interactive Experience**: Engage with your team through modern UI/UX
 
 ### **Developers**
-- **React Learning**: Study modern React patterns and TypeScript usage
+- **React Learning**: Study modern React patterns, hooks, and TypeScript usage
+- **WebGL Integration**: Learn how to integrate advanced graphics in React apps
 - **API Integration**: Learn how to integrate external sports APIs
-- **UI/UX Design**: Explore responsive design and animation techniques
+- **UI/UX Design**: Explore responsive design, animations, and modern interfaces
+
+## 🚀 Recent Updates
+
+### **v2.0 - Chemistry System Overhaul**
+- ✅ Dynamic chemistry connection detection
+- ✅ Support for both NFL Team Boost and College Connection bonuses
+- ✅ PlayerInspect modal with detailed chemistry analysis
+- ✅ Context menu interface for player interactions
+- ✅ WebGL animated background system
+- ✅ Enhanced player cards with improved styling
+- ✅ Real-time chemistry bonus calculations
+
+### **v1.0 - Core Features**
+- ✅ Team formation display
+- ✅ Player card system
+- ✅ Sleeper.app integration
+- ✅ Basic chemistry connections
 
 ## 🤝 Contributing
 
@@ -157,6 +216,7 @@ Contributions are welcome! Here are some ways you can help:
 - **Feature Requests**: Suggest new features or improvements
 - **Code Contributions**: Submit pull requests for enhancements
 - **Documentation**: Help improve this README or add code comments
+- **Chemistry Rules**: Help refine the connection patterns and bonus systems
 
 ## 📄 License
 
@@ -166,10 +226,14 @@ This project is open source and available under the [MIT License](LICENSE).
 
 - **Sleeper.app** for providing the fantasy football API
 - **React Team** for the amazing framework
+- **OGL Library** for WebGL graphics capabilities
+- **React Bits** for UI component inspiration
 - **Fantasy Football Community** for inspiration and feedback
 
 ---
 
-**Ready to manage your fantasy football team like a pro?** 🏆
+**Ready to manage your fantasy football team with advanced chemistry analysis?** 🏆
 
-Start the app, customize your username, and explore the dynamic world of player connections and multipliers! 
+Start the app, explore the new chemistry system, and discover how player connections can boost your team's performance! 
+
+**New in v2.0**: Click any player card to inspect their chemistry connections and see exactly how they boost your team! 🚀 
