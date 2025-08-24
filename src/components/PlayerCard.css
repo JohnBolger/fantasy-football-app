@@ -213,7 +213,7 @@
     bottom: 8px;
     left: 8px;
     font-size: 0.7rem;
-    color: #666;
+    color: #ffffff;
     margin: 0;
     font-weight: 500;
     z-index: 10;
@@ -224,7 +224,7 @@
     bottom: 8px;
     right: 8px;
     font-size: 0.6rem;
-    color: #888;
+    color: #ffffff;
     margin: 0;
     font-weight: 400;
     z-index: 10;
@@ -296,70 +296,186 @@
     color: #6c757d;
   }
   
-     /* Responsive Design */
-   @media (max-width: 768px) {
+     /* Portrait Design */
+   @media (max-width: 480px) {
      .player-card {
-       width: 276px;
-       height: 322px;
+       width: 60px;
+       height: 120px;
      }
      
      .card-header {
-       height: 184px;
+       height: 60%;
+     }
+     
+     .card-body {
+       height: 50%;
+       padding: 8%;
+     }
+     
+     .card-info {
+       margin-bottom: 6%;
      }
      
      .card-avatar {
-       width: 115px;
-       height: 115px;
+       width: 50%;
+       height: 50%;
+       top: 85%;
      }
-    
-    .card-name {
-      font-size: 1.3rem;
-    }
-    
-    .card-team {
-      font-size: 0.9rem;
-    }
-    
-    .card-college {
-      font-size: 0.8rem;
-    }
-    
-    .card-points {
-      font-size: 1rem;
-    }
-  }
   
-     @media (max-width: 480px) {
-     .player-card {
-       width: 230px;
-       height: 276px;
-     }
-     
-     .card-header {
-       height: 161px;
-     }
-     
-     .card-avatar {
-       width: 92px;
-       height: 92px;
-     }
-    
-    .card-name {
-      font-size: 1.1rem;
+     .card-name-header {
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: .5rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0;
+      line-height: 1.1;
+      text-align: center;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+      z-index: 2;
     }
     
     .card-team {
-      font-size: 0.8rem;
+      font-size: 0.35rem;
+      bottom: 50%;
+      text-align: center;
     }
     
     .card-college {
-      font-size: 0.7rem;
+      font-size: 0.35rem;
+      bottom: 25%;
+      text-align: center;
     }
     
     .card-points {
-      font-size: 0.9rem;
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      font-size: 0.35rem;
+      padding: 4% 12%;
+      border-radius: 18%;
+      min-width: 65%;
     }
+
+     .card-position-badge {
+       position: absolute;
+       top: 3%;
+       left: 3%;
+       background: linear-gradient(135deg, #04af95, #0e2543);
+       color: #fff;
+       padding: 3% 10%;
+       border-radius: 12%;
+       font-size: 0.3rem;
+       font-weight: 600;
+       text-transform: uppercase;
+       letter-spacing: 0.3px;
+       box-shadow: 0 1px 4px rgba(4, 175, 149, 0.3);
+       z-index: 10;
+     }
+     
+     /* Multiplier Badge */
+     .player-multiplier {
+       position: absolute;
+       top: 3%;
+       right: 3%;
+       background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+       color: #fff;
+       padding: 2% 7%;
+       border-radius: 10%;
+       font-size: 0.3rem;
+       font-weight: 700;
+       text-transform: uppercase;
+       letter-spacing: 0.3px;
+       box-shadow: 0 1px 4px rgba(255, 107, 107, 0.4);
+       z-index: 10;
+     }
   }
+     /* Landscape Design */
+  @media (min-width: 481px) and (max-width: 812px) {
+    .player-card {
+      width: 150px;
+      height: 180px;
+    }
+    
+    .card-header {
+      height: 110px;
+    }
+    
+    .card-body {
+      height: 50%;
+      padding: 8%;
+    }
+    
+    .card-info {
+      margin-bottom: 6%;
+    }
+    
+    .card-avatar {
+      width: 50%;
+      height: 50%;
+      top: 70%;
+    }
+   
+   .card-name {
+     font-size: 0.6rem;
+     margin-bottom: 3%;
+   }
+   
+   .card-team {
+     font-size: 0.5rem;
+     bottom: 6%;
+     left: 6%;
+   }
+   
+   .card-college {
+     font-size: 0.45rem;
+     bottom: 6%;
+     right: 6%;
+   }
+   
+   .card-points {
+     font-size: 0.55rem;
+     padding: 4% 12%;
+     border-radius: 18%;
+     min-width: 65%;
+   }
+
+    .card-position-badge {
+      position: absolute;
+      top: 3%;
+      left: 3%;
+      background: linear-gradient(135deg, #04af95, #0e2543);
+      color: #fff;
+      padding: 3% 10%;
+      border-radius: 12%;
+      font-size: 0.5rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      box-shadow: 0 1px 4px rgba(4, 175, 149, 0.3);
+      z-index: 10;
+    }
+    
+    /* Multiplier Badge */
+    .player-multiplier {
+      position: absolute;
+      top: 3%;
+      right: 3%;
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: #fff;
+      padding: 2% 7%;
+      border-radius: 10%;
+      font-size: 0.45rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      box-shadow: 0 1px 4px rgba(255, 107, 107, 0.4);
+      z-index: 10;
+    }
+ }
+  
   
      /* Clickable Styles */
    .player-card.clickable {

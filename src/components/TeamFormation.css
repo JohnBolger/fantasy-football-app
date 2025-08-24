@@ -186,7 +186,7 @@
 /* Connection lines removed - replaced with glow effects on player cards */
 
 /* Enhanced Mobile Responsive Design */
-@media (max-width: 768px) {
+@media (max-width: 812px) { 
   .team-formation {
     padding: 10px;
     max-width: 100%;
@@ -209,22 +209,24 @@
     letter-spacing: 1px;
   }
   
-
   .section-title {
     font-size: 1.2rem;
     margin-bottom: 15px;
   }
   
   .position-group {
-    gap: 10px;
+    gap: 8px;
+    margin-bottom: 15px;
   }
   
+  /* Maintain horizontal layout for top row but with smaller gaps */
   .top-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
   }
   
+  /* Keep the same positioning but adjust margins for mobile */
   .wr-group, .flex-group, .te-group {
     margin: 0;
   }
@@ -242,7 +244,7 @@
   }
   
   .bench-players {
-    gap: 10px;
+    gap: 8px;
     justify-content: center;
   }
   
@@ -252,32 +254,6 @@
   }
 }
 
-/* Small mobile devices */
-@media (max-width: 480px) {
-  .team-formation {
-    padding: 8px;
-  }
-  
-  .formation-header {
-    padding: 12px;
-  }
-  
-  .team-title {
-    font-size: 1.5rem;
-  }
-  
-  .football-field {
-    padding: 12px;
-  }
-  
-  .position-group {
-    gap: 8px;
-  }
-  
-  .top-row {
-    gap: 12px;
-  }
-}
 
 .formation-subtitle {
   font-size: 1.1rem;
