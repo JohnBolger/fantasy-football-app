@@ -11,9 +11,10 @@ interface PlayerCardProps {
   isSelected?: boolean;
   onInspect?: () => void;
   onSwap?: () => void;
+  showPoints?: boolean;
 }
 
-const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '', multiplier, onClick, isSelected = false, onInspect, onSwap }) => {
+const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '', multiplier, onClick, isSelected = false, onInspect, onSwap, showPoints = true }) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -69,15 +70,37 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
       >
         <div className="card-header">
           <div className="card-cover"></div>
-          <div className="card-avatar">
-            <div className="avatar-placeholder">
-              <span>GG</span>
-            </div>
-          </div>
+          {/* Avatar section removed for placeholder cards */}
         </div>
         <div className="card-body">
           <div className="card-info">
             <h3 className="card-name">Empty Slot</h3>
+            <p className="card-position">{position}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Check if this is a placeholder card
+  const isPlaceholder = player.id && player.id.startsWith('placeholder-');
+
+  if (isPlaceholder) {
+    // Display placeholder card with "Select <Position>" text
+    return (
+      <div 
+        className={`player-card placeholder clickable ${className}`}
+        onClick={onClick}
+        style={{ cursor: onClick ? 'pointer' : 'default' }}
+        data-multiplier="1.0"
+      >
+        <div className="card-header">
+          <div className="card-cover"></div>
+          {/* Avatar section removed for placeholder cards */}
+        </div>
+        <div className="card-body">
+          <div className="card-info">
+            <h3 className="card-name">{player.name}</h3>
             <p className="card-position">{position}</p>
           </div>
         </div>
@@ -157,7 +180,7 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
       <div className="card-body">
         <div className="card-info">
           {/* Points display */}
-          {player.points !== undefined && (
+          {showPoints && player.points !== undefined && (
             <div className="card-points">
               {multiplier && multiplier > 1.0 
                 ? `${(player.points * multiplier).toFixed(1)} pts`

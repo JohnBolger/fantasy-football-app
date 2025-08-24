@@ -66,9 +66,23 @@ const PlayerSelectionModal: React.FC<PlayerSelectionModalProps> = ({
                   alt={player.name}
                   className="player-photo"
                   onError={(e) => {
-                    e.currentTarget.src = 'https://via.placeholder.com/40x40?text=?';
+                    const target = e.currentTarget;
+                    target.style.display = 'none';
+                    // Create a fallback placeholder if it doesn't exist
+                    if (!target.nextElementSibling) {
+                      const fallback = document.createElement('div');
+                      fallback.className = 'player-photo-fallback';
+                      fallback.textContent = player.name ? player.name.split(' ').map(n => n[0]).join('') : '?';
+                      target.parentNode?.insertBefore(fallback, target.nextSibling);
+                    } else {
+                      target.nextElementSibling.classList.remove('hidden');
+                    }
                   }}
                 />
+                {/* Fallback placeholder that shows when image fails */}
+                <div className="player-photo-fallback hidden">
+                  {player.name ? player.name.split(' ').map(n => n[0]).join('') : '?'}
+                </div>
                 <div className="player-info">
                   <div className="player-name">{player.name}</div>
                   <div className="player-details">

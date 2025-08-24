@@ -1,6 +1,6 @@
 # 🏈 Fantasy Football Team Manager
 
-A dynamic, interactive fantasy football team management application built with React, TypeScript, and WebGL that features advanced chemistry systems, player inspection tools, and stunning visual effects.
+A dynamic, interactive fantasy football team management application built with React, TypeScript, and WebGL that features advanced chemistry systems, player inspection tools, team building capabilities, and stunning visual effects.
 
 ## ✨ Features
 
@@ -10,6 +10,14 @@ A dynamic, interactive fantasy football team management application built with R
 - **Interactive Elements**: Click to inspect players or swap positions
 - **Bench Management**: Dedicated section for bench players
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
+
+### 🏗️ **Team Builder Mode**
+- **Interactive Team Creation**: Build teams from scratch with a comprehensive player database
+- **Default Placeholder Cards**: Black cards with "Select <Position>" text for each position
+- **Player Selection Modal**: Search and filter through available players
+- **Chemistry Toggle**: Turn chemistry calculations on/off to experiment with different strategies
+- **Clear Team Function**: Reset team back to placeholder cards with one click
+- **No Points Display**: Clean interface focused on team building rather than scoring
 
 ### 🔬 **Player Inspection System**
 - **Detailed Player Modal**: Comprehensive player information display
@@ -27,6 +35,7 @@ A dynamic, interactive fantasy football team management application built with R
 - **Smart Connection Detection**: Automatically determines connection types based on actual player data
 - **Dual Bonus Support**: Players can receive both NFL Team Boost AND College Connection bonuses
 - **Real-Time Updates**: Chemistry connections update automatically when players change
+- **Chemistry Toggle**: Enable/disable chemistry calculations to see their impact
 - **Position-Based Rules**: Each position has specific connection patterns:
   - **QB**: Connects to WR1, RB1, Flex1, TE
   - **RB1**: Connects to QB, RB2, Flex1, WR1
@@ -47,6 +56,7 @@ A dynamic, interactive fantasy football team management application built with R
   - **1.3x**: Dark green glow
   - **1.4x**: Purple glow
   - **1.5x**: Galaxy purple glow
+- **Placeholder Cards**: Black cards with white text for team building positions
 - **Smooth Animations**: Hover effects, transitions, and interactive feedback
 
 ### 📊 **Enhanced Player Multiplier System**
@@ -54,12 +64,19 @@ A dynamic, interactive fantasy football team management application built with R
 - **Dual Connection Types**: NFL Team Boost and College Connection bonuses stack
 - **Visual Indicators**: Glowing effects and multiplier badges
 - **Real-Time Calculation**: Multipliers update automatically with roster changes
+- **Configurable Chemistry**: Toggle chemistry system on/off for different strategies
 
 ### 🔌 **Sleeper.app Integration**
 - **Live Data**: Connect to your actual Sleeper fantasy football league
 - **Hybrid Approach**: Uses local player database for details + API for current roster
 - **Demo Mode**: Test the app with sample data before connecting to live league
 - **User Management**: Support for multiple users and team customization
+
+### 🔍 **Enhanced Player Selection**
+- **Search Functionality**: Filter players by name, team, college, or position
+- **Fallback Images**: Graceful handling of missing player photos with styled initials
+- **Position Validation**: Ensures players can only be placed in valid positions
+- **Responsive Modal**: Works seamlessly on all device sizes
 
 ## 🚀 Getting Started
 
@@ -99,6 +116,14 @@ A dynamic, interactive fantasy football team management application built with R
 - Requires a `players.json` file with player data
 - Automatically fetches your current roster
 
+### **Team Builder Mode**
+- Click "Team Builder" to access the team building interface
+- **Default Placeholder Cards**: Each position shows a black card with "Select <Position>" text
+- **Add Players**: Click any position to open the player selection modal
+- **Search & Filter**: Use the search bar to find specific players
+- **Chemistry Toggle**: Turn chemistry on/off to see how it affects your team
+- **Clear Team**: Reset your team back to placeholder cards with one click
+
 ### **Player Interaction**
 - **Click Player Cards**: Opens context menu with inspect/swap options
 - **Inspect Player**: View detailed chemistry connections and player stats
@@ -110,6 +135,7 @@ A dynamic, interactive fantasy football team management application built with R
 - **NFL Team Boost**: Shows when players are on the same NFL team
 - **College Connection**: Shows when players attended the same college
 - **Dual Bonuses**: Players can receive both types of bonuses
+- **Toggle Control**: Enable/disable chemistry to experiment with different strategies
 
 ## 🛠️ Technical Details
 
@@ -143,16 +169,19 @@ fantasy-football-app/
 ├── src/
 │   ├── components/
 │   │   ├── TeamFormation.tsx # Main team display and management
+│   │   ├── TeamBuilder.tsx   # Team building interface with placeholder cards
 │   │   ├── PlayerCard.tsx    # Enhanced player cards with context menu
 │   │   ├── PlayerInspect.tsx # Player inspection modal
 │   │   ├── Background.tsx    # WebGL animated background
-│   │   ├── PlayerSelectionModal.tsx # Player swap interface
+│   │   ├── PlayerSelectionModal.tsx # Player selection and swap interface
 │   │   └── DemoMode.tsx      # Sample data
 │   ├── services/
 │   │   └── SleeperAPI.ts     # API integration
 │   ├── types/
 │   │   └── Player.ts         # TypeScript interfaces
-│   ├── App.tsx               # Main application
+│   ├── utils/
+│   │   └── positionValidation.ts # Position validation logic
+│   ├── App.tsx               # Main application with mode switching
 │   └── index.tsx             # Application entry point
 └── README.md
 ```
@@ -193,6 +222,15 @@ fantasy-football-app/
 
 ## 🚀 Recent Updates
 
+### **v3.0 - Team Builder & Enhanced Chemistry**
+- ✅ **Team Builder Mode**: Complete team building interface with placeholder cards
+- ✅ **Chemistry Toggle**: Enable/disable chemistry calculations for strategy experimentation
+- ✅ **Default Placeholder Cards**: Black cards with "Select <Position>" text for all positions
+- ✅ **Enhanced Player Selection**: Improved modal with fallback images and search functionality
+- ✅ **Clear Team Function**: One-click team reset to placeholder cards
+- ✅ **Improved UI/UX**: Better button styling and header organization
+- ✅ **Position Validation**: Ensures players can only be placed in valid positions
+
 ### **v2.0 - Chemistry System Overhaul**
 - ✅ Dynamic chemistry connection detection
 - ✅ Support for both NFL Team Boost and College Connection bonuses
@@ -232,8 +270,10 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ---
 
-**Ready to manage your fantasy football team with advanced chemistry analysis?** 🏆
+**Ready to manage your fantasy football team with advanced chemistry analysis and team building?** 🏆
 
-Start the app, explore the new chemistry system, and discover how player connections can boost your team's performance! 
+Start the app, explore the new Team Builder mode, experiment with chemistry toggles, and discover how player connections can boost your team's performance! 
 
-**New in v2.0**: Click any player card to inspect their chemistry connections and see exactly how they boost your team! 🚀 
+**New in v3.0**: Build teams from scratch with placeholder cards, toggle chemistry on/off, and enjoy an enhanced team building experience! 🚀
+
+**New in v2.0**: Click any player card to inspect their chemistry connections and see exactly how they boost your team! 🔬 

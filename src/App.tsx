@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import TeamFormation from './components/TeamFormation';
+import TeamBuilder from './components/TeamBuilder';
 import { SleeperAPI } from './services/SleeperAPI';
 import { Player } from './types/Player';
 import { demoPlayers, transformPlayersForFormation } from './components/DemoMode';
@@ -12,6 +13,7 @@ function App() {
   const [error, setError] = useState<string | null>(null);
   const [demoMode, setDemoMode] = useState(true);
   const [selectedUserId, setSelectedUserId] = useState<string>('');
+  const [viewMode, setViewMode] = useState<'formation' | 'builder'>('formation');
 
   useEffect(() => {
     if (demoMode) {
@@ -80,25 +82,42 @@ function App() {
       <Background />
       <div className="demo-toggle">
         <button 
-          className={`toggle-btn ${demoMode ? 'active' : ''}`}
-          onClick={() => setDemoMode(true)}
+          className={`toggle-btn ${viewMode === 'formation' && demoMode ? 'active' : ''}`}
+          onClick={() => {
+            setDemoMode(true);
+            setViewMode('formation');
+          }}
         >
           Demo Mode
         </button>
         <button 
-          className={`toggle-btn ${!demoMode ? 'active' : ''}`}
-          onClick={() => setDemoMode(false)}
+          className={`toggle-btn ${viewMode === 'formation' && !demoMode ? 'active' : ''}`}
+          onClick={() => {
+            setDemoMode(false);
+            setViewMode('formation');
+          }}
         >
           Live Mode
         </button>
+        <button 
+          className={`toggle-btn ${viewMode === 'builder' ? 'active' : ''}`}
+          onClick={() => setViewMode('builder')}
+        >
+          Team Builder
+        </button>
       </div>
-      <TeamFormation 
-        players={players} 
-        demoMode={demoMode} 
-        onUserSelect={setSelectedUserId}
-        selectedUserId={selectedUserId}
-        onLineupChange={handleLineupChange}
-      />
+      
+      {viewMode === 'formation' ? (
+        <TeamFormation 
+          players={players} 
+          demoMode={demoMode} 
+          onUserSelect={setSelectedUserId}
+          selectedUserId={selectedUserId}
+          onLineupChange={handleLineupChange}
+        />
+      ) : (
+        <TeamBuilder players={[]} />
+      )}
     </div>
   );
 }

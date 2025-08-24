@@ -4,7 +4,7 @@ import { Player } from '../types/Player';
 export const demoPlayers: Player[] = [
   // Starters - All Eagles players
   {
-    id: '4039',
+    id: '6904',
     name: 'Jalen Hurts',
     position: 'QB',           // Actual NFL position
     fantasySlot: 'QB',        // Fantasy lineup position
@@ -14,10 +14,10 @@ export const demoPlayers: Player[] = [
     points: 22,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4039.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/6904.jpg'
   },
   {
-    id: '642',
+    id: '6790',
     name: 'D\'Andre Swift',
     position: 'RB',           // Actual NFL position
     fantasySlot: 'RB1',       // Fantasy lineup position
@@ -27,10 +27,10 @@ export const demoPlayers: Player[] = [
     points: 9,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/642.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/6790.jpg'
   },
   {
-    id: '4034',
+    id: '7569',
     name: 'Kenneth Gainwell',
     position: 'RB',           // Actual NFL position
     fantasySlot: 'RB2',       // Fantasy lineup position
@@ -40,10 +40,10 @@ export const demoPlayers: Player[] = [
     points: 3.4,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4034.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/7569.jpg'
   },
   {
-    id: '147',
+    id: '5859',
     name: 'A.J. Brown',
     position: 'WR',           // Actual NFL position
     fantasySlot: 'WR1',       // Fantasy lineup position
@@ -53,10 +53,10 @@ export const demoPlayers: Player[] = [
     points: 10.5,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/147.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/5859.jpg'
   },
   {
-    id: '4038',
+    id: '7525',
     name: 'DeVonta Smith',
     position: 'WR',           // Actual NFL position
     fantasySlot: 'WR2',       // Fantasy lineup position
@@ -66,10 +66,10 @@ export const demoPlayers: Player[] = [
     points: 19.3,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4038.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/7525.jpg'
   },
   {
-    id: '515',
+    id: '5022',
     name: 'Dallas Goedert',
     position: 'TE',           // Actual NFL position
     fantasySlot: 'TE',        // Fantasy lineup position
@@ -79,10 +79,10 @@ export const demoPlayers: Player[] = [
     points: 6.2,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/515.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/5022.jpg'
   },
   {
-    id: '4149',
+    id: '6927',
     name: 'Quez Watkins',
     position: 'WR',           // Actual NFL position
     fantasySlot: 'Flex1',     // Fantasy lineup position
@@ -92,10 +92,10 @@ export const demoPlayers: Player[] = [
     points: 1.2,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4149.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/6927.jpg'
   },
   {
-    id: '2257',
+    id: '6271',
     name: 'Olamide Zaccheaus',
     position: 'WR',           // Actual NFL position
     fantasySlot: 'Flex2',     // Fantasy lineup position
@@ -105,10 +105,10 @@ export const demoPlayers: Player[] = [
     points: 7.3,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2257.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/6271.jpg'
   },
   {
-    id: '2307',
+    id: '4195',
     name: 'Jake Elliott',
     position: 'K',            // Actual NFL position
     fantasySlot: 'K',         // Fantasy lineup position
@@ -118,11 +118,11 @@ export const demoPlayers: Player[] = [
     points: 10.2,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2307.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4195.jpg'
   },
   // Bench players - Also Eagles
   {
-    id: '2309',
+    id: '2307',
     name: 'Marcus Mariota',
     position: 'QB',           // Actual NFL position
     fantasySlot: 'Bench',     // Fantasy lineup position
@@ -132,10 +132,10 @@ export const demoPlayers: Player[] = [
     points: 3.5,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2309.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/2307.jpg'
   },
   {
-    id: '4035',
+    id: '4985',
     name: 'Rashaad Penny',
     position: 'RB',           // Actual NFL position
     fantasySlot: 'Bench',     // Fantasy lineup position
@@ -145,10 +145,10 @@ export const demoPlayers: Player[] = [
     points: 1,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4035.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4985.jpg'
   },
   {
-    id: '4381',
+    id: '8414',
     name: 'Britain Covey',
     position: 'WR',           // Actual NFL position
     fantasySlot: 'Bench',     // Fantasy lineup position
@@ -158,10 +158,10 @@ export const demoPlayers: Player[] = [
     points: 0,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/4381.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/8414.jpg'
   },
   {
-    id: '5849',
+    id: '8177',
     name: 'Grant Calcaterra',
     position: 'TE',           // Actual NFL position
     fantasySlot: 'Bench',     // Fantasy lineup position
@@ -171,7 +171,7 @@ export const demoPlayers: Player[] = [
     points: 0,
     projected_points: 0,
     status: 'Active',
-    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/5849.jpg'
+    photo_url: 'https://sleepercdn.com/content/nfl/players/thumb/8177.jpg'
   }
 ];
 
