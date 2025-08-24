@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import './PlayerCard.css';
 import { Player } from '../types/Player';
+import { loadCollegeLogos, getCollegeDisplayInfo } from '../utils/collegeLogos';
+import { loadNFLTeamLogos, getNFLTeamDisplayInfo } from '../utils/nflTeamLogos';
 
 interface PlayerCardProps {
   player: Player | undefined;
@@ -18,6 +20,11 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [contextMenuPosition, setContextMenuPosition] = useState({ x: 0, y: 0 });
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [collegeLogoUrl, setCollegeLogoUrl] = useState<string | null>(null);
+  const [collegeDisplayName, setCollegeDisplayName] = useState<string>('');
+  const [nflTeamLogoUrl, setNflTeamLogoUrl] = useState<string | null>(null);
+  const [nflTeamDisplayName, setNflTeamDisplayName] = useState<string>('');
+  const [teamColors, setTeamColors] = useState<{ primary: string; secondary: string } | null>(null);
 
   // Close context menu when clicking outside or pressing Escape
   useEffect(() => {
@@ -59,6 +66,44 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
     console.log('Context menu state changed:', showContextMenu);
   }, [showContextMenu]);
 
+  // Load college logos and find logo for current player
+  useEffect(() => {
+    if (player?.college) {
+      const loadLogo = async () => {
+        console.log(`Loading college logo for: ${player.college}`);
+        await loadCollegeLogos();
+        const { logoUrl, displayName } = getCollegeDisplayInfo(player.college!);
+        console.log(`College logo result for ${player.college}:`, { logoUrl, displayName });
+        setCollegeLogoUrl(logoUrl);
+        setCollegeDisplayName(displayName);
+      };
+      loadLogo();
+    } else {
+      setCollegeLogoUrl(null);
+      setCollegeDisplayName('');
+    }
+  }, [player?.college]);
+
+  // Load NFL team logos and find logo for current player
+  useEffect(() => {
+    if (player?.team) {
+      const loadTeamLogo = async () => {
+        console.log(`Loading NFL team logo for: ${player.team}`);
+        await loadNFLTeamLogos();
+        const { logoUrl, displayName, colors } = getNFLTeamDisplayInfo(player.team!);
+        console.log(`NFL team logo result for ${player.team}:`, { logoUrl, displayName, colors });
+        setNflTeamLogoUrl(logoUrl);
+        setNflTeamDisplayName(displayName);
+        setTeamColors(colors);
+      };
+      loadTeamLogo();
+    } else {
+      setNflTeamLogoUrl(null);
+      setNflTeamDisplayName('');
+      setTeamColors(null);
+    }
+  }, [player?.team]);
+
   if (!player) {
     // Display placeholder when no player is assigned
     return (
@@ -69,7 +114,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
         data-multiplier="1.0"
       >
         <div className="card-header">
-          <div className="card-cover"></div>
+          <div 
+            className="card-cover"
+            style={{
+              background: teamColors?.primary ? teamColors.primary : '#dee2e6'
+            }}
+          ></div>
           {/* Avatar section removed for placeholder cards */}
         </div>
         <div className="card-body">
@@ -95,7 +145,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
         data-multiplier="1.0"
       >
         <div className="card-header">
-          <div className="card-cover"></div>
+          <div 
+            className="card-cover"
+            style={{
+              background: teamColors?.primary ? teamColors.primary : '#adb5bd'
+            }}
+          ></div>
           {/* Avatar section removed for placeholder cards */}
         </div>
         <div className="card-body">
@@ -156,7 +211,12 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
       )}
       
       <div className="card-header">
-        <div className="card-cover"></div>
+        <div 
+          className="card-cover"
+          style={{
+            background: teamColors?.primary ? teamColors.primary : '#9c7a7a'
+          }}
+        ></div>
         <div className="card-position-badge">{position}</div>
         <div className="card-name-header">{player.name || 'Unknown Player'}</div>
         <div className="card-avatar">
@@ -191,11 +251,54 @@ const PlayerCard: React.FC<PlayerCardProps> = ({ player, position, className = '
         </div>
         
         {/* Team positioned in bottom left corner */}
-        <div className="card-team">{player.team || 'N/A'}</div>
+        <div className="card-team">
+          {nflTeamLogoUrl ? (
+            <img 
+              src={nflTeamLogoUrl} 
+              alt={nflTeamDisplayName}
+              className="team-logo"
+              onError={() => {
+                // Fallback to text if logo fails to load
+                setNflTeamLogoUrl(null);
+              }}
+              onLoad={() => {
+                // Logo loaded successfully
+                console.log(`NFL team logo loaded for ${nflTeamDisplayName}`);
+              }}
+            />
+          ) : (
+            <span className="team-text" title={nflTeamDisplayName}>
+              {player.team || 'N/A'}
+            </span>
+          )}
+        </div>
         
-                 {/* College positioned in bottom right corner */}
+        {/* College positioned in bottom right corner */}
         {player.college && (
-          <div className="card-college">{player.college}</div>
+          <div className="card-college">
+            {collegeLogoUrl ? (
+              <img 
+                src={collegeLogoUrl} 
+                alt={collegeDisplayName}
+                className="college-logo"
+                onError={() => {
+                  // Fallback to text if logo fails to load
+                  setCollegeLogoUrl(null);
+                }}
+                onLoad={() => {
+                  // Logo loaded successfully
+                  console.log(`College logo loaded for ${collegeDisplayName}`);
+                }}
+              />
+            ) : (
+              <span className="college-text" title={collegeDisplayName}>
+                {collegeDisplayName.length > 8 ? 
+                  collegeDisplayName.substring(0, 8) + '...' : 
+                  collegeDisplayName
+                }
+              </span>
+            )}
+          </div>
         )}
       </div>
 

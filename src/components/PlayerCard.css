@@ -3,7 +3,7 @@
      position: relative;
      width: 161px;
      height: 207px;
-     background: #363636;
+     background: linear-gradient(135deg, #c0c0c0, #e8e8e8, #a8a8a8);
      border-radius: 17px;
      box-shadow: 0 23px 46px rgba(0, 0, 0, 0.15);
      transition: 0.5s;
@@ -121,8 +121,19 @@
      left: 0;
      width: 100%;
      height: 100%;
-     background: #363636;
+     /* Background color now set dynamically via inline styles */
    }
+
+  /* Ensure good contrast for text over team colors */
+  .card-name-header,
+  .card-position-badge {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  }
+
+  .card-name-header {
+    color: #ffffff;
+    font-weight: 700;
+  }
   
   .card-name-header {
     position: absolute;
@@ -217,6 +228,22 @@
     margin: 0;
     font-weight: 500;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .team-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 2px;
+  }
+
+  .team-text {
+    font-size: 0.7rem;
+    color: #ffffff;
+    font-weight: 500;
   }
   
   .card-college {
@@ -228,6 +255,22 @@
     margin: 0;
     font-weight: 400;
     z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .college-logo {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    border-radius: 2px;
+  }
+
+  .college-text {
+    font-size: 0.6rem;
+    color: #ffffff;
+    font-weight: 400;
   }
   
   .card-points {
@@ -308,7 +351,7 @@
      }
      
      .card-body {
-       height: 50%;
+       height: 40%;
        padding: 8%;
      }
      
@@ -336,17 +379,19 @@
       text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
       z-index: 2;
     }
-    
-    .card-team {
-      font-size: 0.35rem;
-      bottom: 50%;
-      text-align: center;
-    }
-    
-    .card-college {
-      font-size: 0.35rem;
-      bottom: 25%;
-      text-align: center;
+
+     .team-logo {
+       width: 15px;
+       height: 15px;
+       object-fit: contain;
+       border-radius: 2px;
+     }
+
+    .college-logo {
+      width: 15px;
+      height: 15px;
+      object-fit: contain;
+      border-radius: 2px;
     }
     
     .card-points {
@@ -400,11 +445,11 @@
     }
     
     .card-header {
-      height: 110px;
+      height: 65%;
     }
     
     .card-body {
-      height: 50%;
+      height: 30%;
       padding: 8%;
     }
     
@@ -413,9 +458,9 @@
     }
     
     .card-avatar {
-      width: 50%;
-      height: 50%;
-      top: 70%;
+      width: 70%;
+      height: 70%;
+      top: 85%;
     }
    
    .card-name {
@@ -423,24 +468,48 @@
      margin-bottom: 3%;
    }
    
-   .card-team {
-     font-size: 0.5rem;
-     bottom: 6%;
-     left: 6%;
+      .card-team {
+      font-size: 0.5rem;
+      bottom: 6%;
+      left: 6%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-college {
+      font-size: 0.5rem;
+      bottom: 6%;
+      left: 75%; /* Position next to team logo for landscape layout */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+
+    .team-logo {
+      width: 18px;
+      height: 18px;
+      object-fit: contain;
+      border-radius: 2px;
+    }  
+
+   .college-logo {
+     width: 18px;
+     height: 18px;
+     object-fit: contain;
+     border-radius: 2px;
    }
-   
-   .card-college {
-     font-size: 0.45rem;
-     bottom: 6%;
-     right: 6%;
-   }
-   
+
    .card-points {
-     font-size: 0.55rem;
-     padding: 4% 12%;
-     border-radius: 18%;
-     min-width: 65%;
-   }
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    font-size: 0.55rem;
+    padding: 4% 12%;
+    border-radius: 18%;
+    min-width: 50%;
+  }
 
     .card-position-badge {
       position: absolute;
